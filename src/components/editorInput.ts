@@ -55,12 +55,12 @@ export class EditorInput {
                 ev.preventDefault();
                 // open a editordlg
                 // must do the binding when closing
-                var dlg = shared['editordlg'];
+                var dlg: EditorDialog = shared['editordlg'];
                 if (!dlg) {
                     dlg = new EditorDialog();
                     shared['editordlg'] = dlg;
                 }
-                dlg.onAccept = function (self2: any) {
+                dlg.acceptFn = function (self2: any) {
                     self.mathInput.latex(self2.latex());
                 };
                 dlg.setDefinition(self.def);

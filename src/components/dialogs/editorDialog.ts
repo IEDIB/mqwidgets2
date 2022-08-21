@@ -51,15 +51,7 @@ export class EditorDialog extends PwDialog {
         this.window.css("display", "");
         this.editorPanel.focus();
     }
-
-    onAccept(fn: Function){
-        this.acceptFn = fn;
-    }
-
-    onCancel(fn: Function){
-        this.cancelFn = fn;
-    }
-
+ 
     //@override
     dispose() {
         this.editorPanel.dispose();

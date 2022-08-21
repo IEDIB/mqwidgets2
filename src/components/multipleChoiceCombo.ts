@@ -14,7 +14,7 @@ export class MultipleChoiceCombo {
     btn_action: JQuery<HTMLButtonElement>;
     def?: any;
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, options?: any) {
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string) {
         if (typeof (options) == 'string') {
             options = options.split(";");
         }
@@ -33,7 +33,7 @@ export class MultipleChoiceCombo {
         this.btn_action = $('<button type="button" style="background:white;" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tria una opció</button>') as JQuery<HTMLButtonElement>
         const dropdown_menu = $('<div class="dropdown-menu"></div>');
         btn_group.append(this.btn_action);
-        btn_group.append(dropdown_menu);
+        
 
         options.forEach((opt: string, i: number) => {
             const dropdown_item = $('<a class="dropdown-item" href="#">' + opt + '</a>') as JQuery<HTMLAnchorElement>;
@@ -49,6 +49,8 @@ export class MultipleChoiceCombo {
             });
             dropdown_menu.append(dropdown_item);
         });
+
+        btn_group.append(dropdown_menu);
         this.quill_el_container.append(btn_group);
         this.quill_el_container.append(this.check_el);
         this.parent.append(this.quill_el_container);

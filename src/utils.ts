@@ -45,7 +45,7 @@ export function items(obj: any[] | {[name: string]:any}, cb: Function) {
 
 export function hasValue(dict: {[name:string]: any}, target: any): boolean {
     let found: boolean = false;
-    const keys: string[] = Object(dict).keys()
+    const keys: string[] = Object.keys(dict)
     let i = 0
     while(!found && i < keys.length) {
         const k = keys[i]
