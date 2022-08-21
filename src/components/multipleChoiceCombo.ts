@@ -3,7 +3,7 @@ import { reflowLatex } from "../utils";
 
 export class MultipleChoiceCombo {
     selectedIndex: string;
-    gid: number;
+    gid: string;
     qid: number;
     options: any;
     status: number;
@@ -14,7 +14,7 @@ export class MultipleChoiceCombo {
     btn_action: JQuery<HTMLButtonElement>;
     def?: any;
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: number, options?: any) {
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, options?: any) {
         if (typeof (options) == 'string') {
             options = options.split(";");
         }

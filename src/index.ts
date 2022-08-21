@@ -1,20 +1,16 @@
 import { applyPolyfills } from './polyfills';
-import { cfg, loadPageInfo } from './globals'
-import { createLinkSheet, insertScript } from "./utils";
-import { PwTabMenu } from './components/pwTabMenu';
+import { cfg, loadPageInfo, shared } from './globals'
+import { createLinkSheet, insertScript } from "./utils"; 
+import { findQuillGroups } from './mqfy';
+import { findPyGenerators } from './findPyGenerators';
 
 applyPolyfills()
 
 const onLoad = function() {
     loadPageInfo()
-    //1. find all div.mq-group
-    //2. process all ...
-    const menu = new PwTabMenu();
-    menu.addTab('Tab1')
-    menu.addTab('Tab2')
-    menu.addTab('Tab3') 
-    $('body').append(menu.$div)
-    
+    shared.MQ = window.MathQuill.getInterface(2);
+    findQuillGroups();  // Groups of quills
+    findPyGenerators(); // An interface for dynamic generated questions
 }
 
 // Inject required dependencies on the page

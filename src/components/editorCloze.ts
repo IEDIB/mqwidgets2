@@ -1,0 +1,161 @@
+import { cfg, shared } from "../globals";
+import { reflowLatex } from "../utils";
+import { PwDialog } from "./dialogs/dialog";
+
+export class EditorCloze {
+    gid: string;
+    status: number;
+    parent: JQuery<HTMLDivElement>;
+    wrong_attemps: number;
+    quill_el_container: JQuery<HTMLDivElement>;
+    check_el: JQuery<HTMLDivElement>;
+    mathInput: any;
+    def?: any;
+    answerShown: boolean;
+    dlg_btn_el: any;
+
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, ini: string) {
+        const self = this;
+        this.answerShown = false;
+        this.dlg_btn_el = null;
+        this.gid = gid;
+        // status = 0 incorrecte, status = 1 correcte, status < 0 errors 
+        this.status = cfg.STATUS.UNMODIFIED;
+        this.parent = parent;
+        this.wrong_attemps = 0;
+        this.quill_el_container = $('<div class="pw-me-editorinput"></div>') as JQuery<HTMLDivElement>;
+        const quill_el = $('<span>' + ini + '</span>') as JQuery<HTMLSpanElement>;
+        this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>;
+        this.parent.append(this.quill_el_container);
+        this.quill_el_container.append(quill_el);
+        this.mathInput = shared.MQ.StaticMath(quill_el[0]);
+        // TODO: listen to changes to set status to unmodified
+
+        this.mathInput.innerFields.forEach(function (e: any) {
+            e.__controller.textarea.on('keyup', function (ev: any) {
+                ev.preventDefault();
+                if (self.status != cfg.STATUS.MODIFIED) {
+                    self.check_el.html('');
+                    self.status = cfg.STATUS.MODIFIED;
+                    self.quill_el_container.removeClass('pw-me-right pw-me-wrong pw-me-alert');
+                }
+            });
+        });
+        this.quill_el_container.append(this.check_el);
+    };
+
+
+    clear() {
+        const v = this.mathInput.innerFields;
+        for (let i = 0, lenv = v.length; i < lenv; i++) {
+            v[i].latex('');
+        }
+        this.check_el.html('');
+        this.status = cfg.STATUS.UNMODIFIED;
+        this.quill_el_container.removeClass('pw-me-right pw-me-wrong pw-me-alert');
+    }
+
+    focus() {
+        this.mathInput.focus();
+    }
+
+    latex(tex?: string) {
+        if (tex != null) {
+            this.mathInput.latex(tex);
+            this.status = cfg.STATUS.UNMODIFIED;
+        } else {
+            const parts = [];
+            console.log(this.mathInput.innerFields);
+            const v = this.mathInput.innerFields;
+            for (let i = 0, lenv = v.length; i < lenv; i++) {
+                parts.push(v[i].latex());
+            }
+            return parts;
+        }
+    }
+
+    checkMsg(status: number, msg: string) {
+        this.status = status;
+        let msg2: string = '';
+        if (status == 1) {
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-check"></i></span>';
+            this.quill_el_container.addClass('pw-me-right');
+        } else if (status == 0) {
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-times"></i></span>';
+            this.quill_el_container.addClass('pw-me-wrong');
+        } else {
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-exclamation-triangle"></i></span>';
+            this.quill_el_container.addClass('pw-me-alert');
+        }
+        this.check_el.html(msg2);
+    }
+
+    get_qid() {
+        return this.mathInput.id;
+    }
+
+    dispose() {
+        this.mathInput.revert();
+        this.quill_el_container.find("button").off();
+    }
+
+    reflow() {
+        this.mathInput.reflow();
+        this.status = cfg.STATUS.UNMODIFIED;
+    }
+
+    setDefinition(def: any) {
+        this.def = def;
+    }
+
+    increment_wrong() {
+        this.wrong_attemps += 1;
+    }
+    
+    showAnswer() {
+        if (!this.def.right_answer) {
+            console.log("Cannot show answer because, ", this.def.right_answer);
+            return;
+        }
+
+        const self = this;
+        //this.showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fas fa-question-circle"></i></button>');
+        //this.quill_el_container.append(this.showAnswerBtn);
+
+        // Must create a global dialog
+        if (!shared["showAnswerDlg"]) {
+            const dlg = new PwDialog("Resposta correcta", 400, 250);
+            shared["showAnswerDlg"] = dlg;
+            const answerHolder = $('<div class="pw-answer-holder"></div>');
+            dlg.append(answerHolder);
+            const closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">Tancar</button>');
+            dlg.append(closeBtn);
+            closeBtn.on('click', function (ev) {
+                ev.preventDefault();
+                dlg.close();
+            });
+        }
+
+        // this.showAnswerBtn.on('click', function(ev){
+        // ev.preventDefault();
+        if (!self.answerShown) {
+            self.answerShown = true;
+            self.status = cfg.STATUS.UNMODIFIED;
+            //Disable mathquill
+            //self.quill_blocker.addClass('pw-me-blocker');
+            //Disable edit buttton
+            if (self.dlg_btn_el) {
+                self.dlg_btn_el.prop("disabled", true);
+            }
+        }
+
+
+        const dlg = shared["showAnswerDlg"];
+        const answerHolder = dlg.window.find(".pw-answer-holder");
+        answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');
+        reflowLatex();
+        dlg.show();
+     
+    }
+
+}

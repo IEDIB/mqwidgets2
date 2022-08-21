@@ -4,7 +4,7 @@ import { copyPropsFromTo, MD5 } from "./utils";
 
 let LAST_AJAX = new Date().getTime()
 
-export function bindSubmitActionButton(gid: number, check_btn: JQuery<HTMLButtonElement>, extraActions?: any) {
+export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButtonElement>, extraActions?: any) {
     var groupContainer = shared[gid];
     var qids = Object.keys(groupContainer);
     check_btn.off();
@@ -130,7 +130,7 @@ export function bindSubmitActionButton(gid: number, check_btn: JQuery<HTMLButton
     }); 
 };
 
-export function createSubmitButtonForGroup (gid: number) {
+export function createSubmitButtonForGroup (gid: string) {
     var check_btn = $('<button class="btn btn-sm btn-primary pw-me-submitgroup"><i class="fas fa-check"></i> Comprova</button>') as JQuery<HTMLButtonElement>;
     bindSubmitActionButton(gid, check_btn);
     return check_btn;

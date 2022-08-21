@@ -11,7 +11,7 @@ import { reflowLatex } from "./utils";
 export class MultipleChoiceCheckbox {
     multipleAnswers: boolean;
     selectedIndex: string;
-    gid: number;
+    gid: string;
     qid: number;
     options: string[];
     status: number;
@@ -22,7 +22,7 @@ export class MultipleChoiceCheckbox {
     btn_action: any;
     def?: any;
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: number, options: string[] | string, multipleAnswers?: boolean) {
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string, multipleAnswers?: boolean) {
         this.multipleAnswers = multipleAnswers || false;
         if (typeof (options) == 'string') {
             options = options.split(";");

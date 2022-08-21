@@ -5,7 +5,7 @@ import { EditorDialog } from "./dialogs/editorDialog";
 
 export class EditorInput {
     def?: any;
-    gid: number;
+    gid: string;
     status: number;
     answerShown: boolean;
     parent: JQuery<HTMLDivElement>;
@@ -17,7 +17,7 @@ export class EditorInput {
     dlg_btn_el: JQuery<HTMLElement> | undefined;
     isPigen?: boolean;
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: number, qtype: string) {
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, qtype: string) {
         var self = this;
         this.gid = gid;
         // status = 0 incorrecte, status = 1 correcte, status < 0 errors 
