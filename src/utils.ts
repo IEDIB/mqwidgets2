@@ -1,7 +1,10 @@
+import { IBStruct, IedibAPIStruct } from "./types";
+
 declare global {
     interface Window { 
-        MathJax: any; 
-        iedibAPI: any;
+        MathJax?: any; 
+        iedibAPI?: IedibAPIStruct;
+        IB?: IBStruct;
     }
 }
 
@@ -11,6 +14,32 @@ export function reflowLatex() {
         window.MathJax.Hub && window.MathJax.Hub.Queue && window.MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
     }
 } 
+
+export function sanitizeLaTeX(tex: string): string {
+    return tex.replace(/·/g, '*');
+}
+
+export function sum(iter: number[]): number {
+    let total = 0;
+    for(let i=0, len=iter.length; i<len; i++) {
+        total += iter[i];
+    }
+    return total;
+};
+
+export function items(obj: any[] | {[name: string]:any}, cb: Function) {
+    if(Array.isArray(obj)) {
+        for(var i=0, len=obj.length; i<len; i++) {
+            cb(i, obj[i]);    
+        }
+    } else {
+        var keys = Object.keys(obj);
+        for(var i=0, len=keys.length; i<len; i++) {
+            var key = keys[i];
+            cb(key, obj[key]);    
+        }
+    }
+};
 
 export function copyPropsFromTo(source: any, target: any) {
     var props = Object.keys(source);

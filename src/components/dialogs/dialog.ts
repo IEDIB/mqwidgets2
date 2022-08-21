@@ -96,7 +96,7 @@ export class PwDialog {
         topBar[0].addEventListener("mousemove", this.drag, false);
     }
 
-    append(element: HTMLElement): void {
+    append(element: JQuery<HTMLElement>): void {
         this.window.append(element);
     }
     show(): void {

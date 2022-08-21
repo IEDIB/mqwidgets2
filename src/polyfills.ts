@@ -40,4 +40,20 @@ export function applyPolyfills() {
             return arr;
           }
     }
+
+    if (!Array.isArray) {
+      Array.isArray = function(arg: any): arg is any[] {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+      };
+    }
+
+    !(typeof Number.isNaN == 'function') ||
+    (Number.isNaN = function (value: number) {
+        return value !== null // Number(null) => 0
+            && (value != value // NaN != NaN
+            || +value != value // Number(falsy) => 0 && falsy == 0...
+        )
+    });
+
+
 }
