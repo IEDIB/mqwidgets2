@@ -7,9 +7,9 @@
 
 export class PwDialog {
     id: string;
-    window: JQuery<HTMLElement>;
-    topBar: JQuery<HTMLElement>;
-    closeBtn: JQuery<HTMLElement>;
+    window: JQuery<HTMLDivElement>;
+    topBar: JQuery<HTMLDivElement>;
+    closeBtn: JQuery<HTMLButtonElement>;
     dragStart: (e: any) => void;
     dragEnd: (e: any) => void;
     setTranslate: (xPos: number, yPos: number, el: HTMLElement) => void;
@@ -17,11 +17,11 @@ export class PwDialog {
     
     constructor(title: string, width: number, height: number) {
         this.id = "pwdlg_" + Math.random().toString(32).substring(2);
-        this.window = $('<div id="' + this.id + '" class="pw-me-dlg" style="width:' + width + 'px;height:' + height + 'px;display:none;"></div>');
-        const topBar = $('<div class="pw-me-dlg-header"></div>');
+        this.window = $('<div id="' + this.id + '" class="pw-me-dlg" style="width:' + width + 'px;height:' + height + 'px;display:none;"></div>') as JQuery<HTMLDivElement>;
+        const topBar = $('<div class="pw-me-dlg-header"></div>') as JQuery<HTMLDivElement>;
         this.topBar = topBar;
-        const headerTitle = $('<span class="pw-me-dlg-headertitle">' + title + '</span>');
-        this.closeBtn = $('<button class="btn btn-sm pw-me-btn-dlgclose" title="Tancar"><i class="fas fa-times"></i></button>');
+        const headerTitle = $('<span class="pw-me-dlg-headertitle">' + title + '</span>') as JQuery<HTMLSpanElement>;
+        this.closeBtn = $('<button class="btn btn-sm pw-me-btn-dlgclose" title="Tancar"><i class="fas fa-times"></i></button>') as JQuery<HTMLButtonElement>;
         const self = this;
         this.closeBtn.on("click", function (ev) {
             ev.preventDefault();
@@ -34,7 +34,7 @@ export class PwDialog {
         $('body').append(this.window);
 
         // Make this dialog draggable
-        let active = false;
+        let active: boolean = false;
         let currentX: number;
         let currentY: number;
         let initialX: number;
