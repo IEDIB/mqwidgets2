@@ -57,9 +57,20 @@ export class PwTabMenu {
     }
 
     setVisible(name: string, visibility: boolean) {
+        console.log(name, this.tabs)
         if(this.tabs[name]) {
             this.tabs[name].tab.css('display', visibility?'':'none');
             this.tabs[name].container.css('display', visibility?'flex':'none');
+        }
+    }
+
+    setEnabled(enabled: boolean) {
+        if(enabled) {
+            this.contentsPanel.css("pointer-events", "initial");
+            this.$panel.css("cursor", "initial");
+        } else {
+            this.contentsPanel.css("pointer-events", "none");
+            this.$panel.css("cursor", "not-allowed");
         }
     }
 
@@ -67,6 +78,7 @@ export class PwTabMenu {
         items(this.tabs, function(key: string, value: any) {
             if(key==name) {
                 value.tab.addClass('pw-me-btn-active');
+                value.tab.css('display', '');
             } else {
                 value.tab.removeClass('pw-me-btn-active');
             }

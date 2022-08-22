@@ -1,6 +1,6 @@
 
 const default_toolbar_buttons = ['fraction', 'square_root', 'cube_root', 'root', 'superscript', 'subscript', 'multiplication', 'division', 'plus_minus', 'pi', 'degree', 'not_equal', 'greater_equal', 'less_equal', 'greater_than', 'less_than', 'angle', 'parallel_to', 'perpendicular', 'triangle', 'parallelogram', 'round_brackets', 'matrix2', 'matrix3'];
-const default_toolbar_tabs = ["General", "Símbols", "Geometria", "Intervals"];
+const default_toolbar_tabs = ["General", "Símbols", "Geometria", "Intervals", "Funcions"];
 const button_meta = {
     //TAB1
     "Multiplicació": { latex: "\\times", tab: 1, icon: '\\times' },
@@ -29,7 +29,7 @@ const button_meta = {
 
     //TAB2 - símbols i constants
     "pi": { latex: "\\pi", tab: 2, icon: '\\pi' },
-    "e": { latex: "\\e", tab: 2, icon: '\\e' },
+    "e": { latex: "\\e", tab: 2, icon: 'e' },
     "infinit": { latex: "\\infty", tab: 2, icon: '\\infty' },
     "Més menys": { latex: "\\pm", tab: 2, icon: '\\pm' },
     "Diferent": { latex: "\\neq", tab: 2, icon: '\\neq' },
@@ -48,12 +48,24 @@ const button_meta = {
     "Paral·lelogram": { latex: "\\parallelogram", tab: 3, icon: '\\parallelogram' },
 
     //TAB4 - intervals
-    "Interval obert": { latex: "\\left( , \\right)", moveto: "Left", movefor: 2, tab: 4, icon: '\\left(\\square, \\square\\right)' },
-    "Interval tancat": { latex: "\\left[ , \\right]", moveto: "Left", movefor: 2, tab: 4, icon: '\\left[\\square, \\square\\right]' },
-    "Interval semi1": { latex: "\\left[ , \\right)", moveto: "Left", movefor: 2, tab: 4, icon: '\\left[\\square, \\square\\right)' },
-    "Interval semi2": { latex: "\\left( , \\right]", moveto: "Left", movefor: 2, tab: 4, icon: '\\left(\\square, \\square\\right]' },
+    "Interval obert": { latex: "\\left( , \\right)", moveto: "Left", movefor: 4, tab: 4, icon: '\\left(\\square, \\square\\right)' },
+    "Interval tancat": { latex: "\\left[ , \\right]", moveto: "Left", movefor: 4, tab: 4, icon: '\\left[\\square, \\square\\right]' },
+    "Interval semi1": { latex: "\\left[ , \\right)", moveto: "Left", movefor: 4, tab: 4, icon: '\\left[\\square, \\square\\right)' },
+    "Interval semi2": { latex: "\\left( , \\right]", moveto: "Left", movefor: 4, tab: 4, icon: '\\left(\\square, \\square\\right]' },
     "Infinit": { latex: "\\infty", tab: 4, icon: '\\infty' },
     "Conjunt dels reals": { latex: "\\mathbb{R}", tab: 4, icon: '\\mathbb{R}' },
+
+    //TAB5- Funcions
+    "Sinus": {latex: "\\sin()", moveto: "Left", movefor: 1, tab: 5, icon: '\\sin{\\square}' },
+    "Cosinus": {latex: "\\cos()", moveto: "Left", movefor: 1, tab: 5, icon: '\\cos{\\square}' },
+    "Tangent": {latex: "\\tan()", moveto: "Left", movefor: 1, tab: 5, icon: '\\tan{\\square}' },
+    "Arcsinus": {latex: "\\arcsin()", moveto: "Left", movefor: 1, tab: 5, icon: '\\arcsin{\\square}' },
+    "Arccosinus": {latex: "\\arccos()", moveto: "Left", movefor: 1, tab: 5, icon: '\\arccos{\\square}' },
+    "Arctangent": {latex: "\\arctan()", moveto: "Left", movefor: 1, tab: 5, icon: '\\arctan{\\square}' },
+    "Logaritme Neperià": {latex: "\\ln()", moveto: "Left", movefor: 1, tab: 5, icon: '\\ln{\\square}' },
+    "Logaritme en base b": {latex: "\\frac{\\log()}{\\log{b}}", moveto: "Left", movefor: 4, tab: 5, icon: '\\log_b{\\square}' },
+    
+    
 };
 const keyboard_keys = {
     'letters': [{ 'value': 'q', 'type': 'write', 'class': 'ks', 'display': 'q', 'new_line': false }, { 'value': 'w', 'type': 'write', 'class': 'ks', 'display': 'w', 'new_line': false }, { 'value': 'e', 'type': 'write', 'class': 'ks', 'display': 'e', 'new_line': false }, { 'value': 'r', 'type': 'write', 'class': 'ks', 'display': 'r', 'new_line': false }, { 'value': 't', 'type': 'write', 'class': 'ks', 'display': 't', 'new_line': false }, { 'value': 'y', 'type': 'write', 'class': 'ks', 'display': 'y', 'new_line': false }, { 'value': 'u', 'type': 'write', 'class': 'ks', 'display': 'u', 'new_line': false }, { 'value': 'i', 'type': 'write', 'class': 'ks', 'display': 'i', 'new_line': false }, { 'value': 'o', 'type': 'write', 'class': 'ks', 'display': 'o', 'new_line': false }, { 'value': 'p', 'type': 'write', 'class': 'ks', 'display': 'p', 'new_line': true }, { 'value': 'a', 'type': 'write', 'class': 'ks', 'display': 'a', 'new_line': false }, { 'value': 's', 'type': 'write', 'class': 'ks', 'display': 's', 'new_line': false }, { 'value': 'd', 'type': 'write', 'class': 'ks', 'display': 'd', 'new_line': false }, { 'value': 'f', 'type': 'write', 'class': 'ks', 'display': 'f', 'new_line': false }, { 'value': 'g', 'type': 'write', 'class': 'ks', 'display': 'g', 'new_line': false }, { 'value': 'h', 'type': 'write', 'class': 'ks', 'display': 'h', 'new_line': false }, { 'value': 'j', 'type': 'write', 'class': 'ks', 'display': 'j', 'new_line': false }, {

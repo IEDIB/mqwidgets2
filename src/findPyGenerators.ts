@@ -260,6 +260,7 @@ export function findPyGenerators () {
                  return;
              } 
              checkBtn.prop("disabled", true);
+             showmeBtn.prop("disabled", true);
              console.log(currentEditor)
              currentEditor.showAnswer && currentEditor.showAnswer(); 
          });

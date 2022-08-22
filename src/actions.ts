@@ -21,8 +21,7 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
         if (LAST_AJAX && (now-LAST_AJAX) < 1000) {
             console.error("Too frequently checks are blocked!");
             return;
-        }
-        var promises = [];
+        } 
         console.log("gid", gid, "qids", qids);
         for (var k = 0, len = qids.length; k < len; k++) {
             var qid = qids[k];
@@ -37,12 +36,12 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
             if(ual.length === 0 || has_empty_answers(ual)) {
                 // contains empty answers
                 editor.checkMsg(-1, 'Falten respostes');
-                console.error('Editro contains empty answers');
+                console.error('Editor contains empty answers');
                 continue;
             }
             if (editor.getStatus() != 1 && ual.length) {
-
-                if( editor.getDefinition().right_answer && (editor.getWrong_attemps() || 0) > cfg.MAX_ATTEMPTS ) {
+                console.log(editor)
+                if( editor.getDefinition().right_answer && editor.getWrong_attemps() > cfg.MAX_ATTEMPTS ) {
                     console.log("TODO:: Must show right answer and disable quill");
                     if(!editor.isPigen()) {
                         // showAnswer must disable quill on its editor
@@ -114,7 +113,8 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
                     }
                     postObj.hash = editor.getHash();
                 }
-                promises.push($.ajax({
+                //TODO: Do something with promises
+                $.ajax({
                     type: "POST",
                     url: cfg.CAS_URL,
                     data: JSON.stringify(postObj),
@@ -123,7 +123,7 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
                         console.log("success", datos);
                         var editor = groupContainer[datos.qid]; 
                         if(datos.correct == 0) {
-                            editor.increment_wrong && editor.increment_wrong();
+                            editor.increment_wrong();
                         }
                         editor.checkMsg(datos.correct, datos.msg); 
                         var score10 = datos.correct? (editor.isComodiUsed()? 5:10): 0;
@@ -132,7 +132,7 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
                     error: function (datos) {
                         console.log("error", datos);
                     }
-                }));
+                });
             }
         } // end loop
  

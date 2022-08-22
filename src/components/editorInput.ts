@@ -112,18 +112,14 @@ export class EditorInput extends EditorBase implements EditorTAD {
     }
 
     showAnswer() {
-        if (!this.def) {
-            console.error("Cannot show answer because def is undefined");
-            return;
-        }
         if (!this.def.right_answer) {
             console.error("Cannot show answer because, ", this.def.right_answer);
             return;
         }
 
         var self = this;
-        //this.showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fas fa-question-circle"></i></button>');
-        //this.quill_el_container.append(this.showAnswerBtn);
+        //const showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fas fa-question-circle"></i></button>') as JQuery<HTMLButtonElement>;
+        //this.quill_el_container.append(showAnswerBtn);
 
         // Must create a global dialog
         if (!sharedDlg["showAnswerDlg"]) {
@@ -138,33 +134,36 @@ export class EditorInput extends EditorBase implements EditorTAD {
                 dlg.close();
             });
         }
-        // this.showAnswerBtn.on('click', function(ev){
-        // ev.preventDefault();
-        if (!self.isAnswerShown) {
-            self.isAnswerShown = true;
-            self.status = cfg.STATUS.UNMODIFIED;
-            // Disable mathquill
-            self.quill_blocker.addClass('pw-me-blocker');
-            // Disable edit buttton
-            if (self.dlg_btn_el) {
-                self.dlg_btn_el.prop("disabled", true);
+
+       // showAnswerBtn.on('click', function(ev){
+       //     ev.preventDefault();
+            if (!self.isAnswerShown) {
+                self.isAnswerShown = true;
+                self.status = cfg.STATUS.UNMODIFIED;
+                // Disable mathquill
+                self.quill_blocker.addClass('pw-me-blocker');
+                // Disable edit buttton
+                if (self.dlg_btn_el) {
+                    self.dlg_btn_el.prop("disabled", true);
+                }
             }
-        }
 
+            var dlg = sharedDlg["showAnswerDlg"];
+            var answerHolder = dlg.window.find(".pw-answer-holder");
+            if (self.def) {
+                answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');
+                reflowLatex();
+                dlg.show();
+            }
 
-        var dlg = sharedDlg["showAnswerDlg"];
-        var answerHolder = dlg.window.find(".pw-answer-holder");
-        if (self.def) {
-            answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');
-            reflowLatex();
-            dlg.show();
-        }
+       // });
     }
 
     increment_wrong() {
+        console.log("increment wrong", this.wrong_attemps == cfg.MAX_ATTEMPTS + 1, !this.pigen)
         this.wrong_attemps += 1;
-        if (this.wrong_attemps == cfg.MAX_ATTEMPTS + 1 && !this.isPigen && this.def) {
-            console.log(this.def);
+        if (this.wrong_attemps == cfg.MAX_ATTEMPTS + 1 && !this.pigen) {
+            console.log("creating a rescue", this.def);
 
             // create a button to display answer
             var rescueBtn = $('<button class="btn btn-sm" title="Mostra la solució"><i class="far fa-question-circle"></i></button>');

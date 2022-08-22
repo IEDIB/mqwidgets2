@@ -15,6 +15,7 @@ export class EditorPanel extends EditorBase implements EditorTAD {
     mathInput: any;
     check_el: JQuery<HTMLDivElement> | undefined;
     feedback_el: JQuery<HTMLDivElement>;
+    spanMathInput: JQuery<HTMLSpanElement>;
    
     constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType, standalone?: boolean) {
         super(parent, gid, def, qtype)
@@ -26,17 +27,15 @@ export class EditorPanel extends EditorBase implements EditorTAD {
         this.status = cfg.STATUS.UNMODIFIED;
         this.panel = $('<div class="pw-me-editorpanel" style="position:relative"></div>') as JQuery<HTMLDivElement>;
         this.parent.append(this.panel);
-
         this.palettes = new PwTabMenu(this.panel);
-
-
-        const spanMathInput = $('<span class="pw-me-editorpanel-mathinput"></span>');
-        spanMathInput.on("click", function (ev) {
+        
+        this.spanMathInput = $('<span class="pw-me-editorpanel-mathinput"></span>') as JQuery<HTMLSpanElement>;
+        this.spanMathInput.on("click", function (ev) {
             ev.preventDefault();
             $('.pw-me-btn-dropdownmenu').css("display", "none");
         });
-        this.panel.append(spanMathInput);
-        this.mathInput = MathField(spanMathInput[0], {
+        this.panel.append(this.spanMathInput);
+        this.mathInput = MathField(this.spanMathInput[0], {
             handlers: {
                 edit() {
                     if (standalone && self.status != cfg.STATUS.MODIFIED) {
@@ -65,8 +64,10 @@ export class EditorPanel extends EditorBase implements EditorTAD {
             self.palettes.addContentsToTab(tabName, aButton);
         })
 
+
+        this.setDefinition(def)
     } 
-    
+
     get $div() {
         return this.panel
     }
@@ -126,7 +127,7 @@ export class EditorPanel extends EditorBase implements EditorTAD {
 
     setDefinition(def: MQDefinition) {
         this.def = def;
-        const self = this;
+        const self = this; 
         if (def.palettes && def.palettes.indexOf('all')>=0) {
             // Show all palettes
             // enable general palette
@@ -169,18 +170,53 @@ export class EditorPanel extends EditorBase implements EditorTAD {
             this.palettes.setTab('General');
         }
     }
+
+    increment_wrong(): void {
+        this.wrong_attemps += 1;
+        if(this.wrong_attemps > cfg.MAX_ATTEMPTS) {
+            this.showAnswer()
+        }
+    }
+
     showAnswer() {
+        var self = this;
         if(!this.def) {
             console.error("Cannot show answer because def is null");
             return;
         }
         if (!this.def.right_answer) { 
-            console.error("Cannot show answer because, ", this.def.right_answer);
-            return;
+            // Try to ask the server to generate the answer
+            $.ajax({
+                type: "POST",
+                url: cfg.GETANSWER_URL,
+                data: JSON.stringify(this.def),
+                dataType: 'json',
+                success: function (datos) {
+                    if (datos.right_answer) {
+                        self.check_el?.css("display", "none");
+                        self.def.right_answer = datos.right_answer;
+                        self.feedback_el.css("display", "");
+                        self.feedback_el.html(atob(self.def.right_answer) + '<p><br></p>');
+                        reflowLatex();
+                        self.isAnswerShown = true; 
+                        self.palettes.setEnabled(false);
+                        self.spanMathInput.css("pointer-events", "none");
+                        self.panel.css("cursor", "not-allowed");
+                    } else if (datos.msg) {
+                        console.error(datos.msg);
+                    }
+                }
+            });
+        } else {
+            self.check_el?.css("display", "none");
+            this.feedback_el.css("display", "");
+            this.feedback_el.html(atob(this.def.right_answer) + '<p><br></p>');
+            reflowLatex();
+            this.isAnswerShown = true;
+            this.palettes.setEnabled(false);
+            this.spanMathInput.css("pointer-events", "none");
+            this.panel.css("cursor", "not-allowed");
         }
-        this.feedback_el.css("display", "");
-        this.feedback_el.html(atob(this.def.right_answer) + '<p><br></p>');
-        reflowLatex();
     } 
 
 };
