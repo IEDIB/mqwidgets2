@@ -1,24 +1,23 @@
 import { cfg, shared } from "../globals";
 import { items, reflowLatex, sanitizeLaTeX } from "../utils";
-import { PwTabMenu } from "./pwTabMenu";
+import { PwTabMenu } from "./toolbar/pwTabMenu";
 import { createToolbarButton } from "./toolbar/createToolbarButton";
 import tbConfig from "./toolbar/toolbar-config"
+import { EditorTAD } from "./editorTAD";
+import { EditorBase } from "./editorBase";
+import { MQDefinition } from "../types";
 
 // Editor panel
-export class EditorPanel {
-    parent: JQuery<HTMLDivElement>;
-    gid: string;
-    wrong_attemps: number;
+export class EditorPanel extends EditorBase implements EditorTAD {
     standalone: boolean;
-    status: number;
     panel: JQuery<HTMLDivElement>;
     palettes: PwTabMenu;
     mathInput: any;
     check_el: JQuery<HTMLDivElement> | undefined;
     feedback_el: JQuery<HTMLDivElement>;
-    def: any;
-
+   
     constructor(parent: JQuery<HTMLDivElement>, gid: string, standalone?: boolean) {
+        super(parent, gid)
         const self = this;
         this.parent = parent;
         this.gid = gid;
@@ -82,14 +81,14 @@ export class EditorPanel {
         this.mathInput.focus();
     }
 
-    latex(tex?: string): string {
+    latex(tex?: string): string[]{
         if (tex != null) {
             this.mathInput.latex(tex);
             this.status = cfg.STATUS.UNMODIFIED;
         } else {
-            return sanitizeLaTeX(this.mathInput.latex());
+            return [sanitizeLaTeX(this.mathInput.latex())];
         }
-        return ''
+        return ['']
     }
 
     checkMsg(status: number, msg: string) {
@@ -124,10 +123,11 @@ export class EditorPanel {
         this.mathInput.reflow();
         this.status = cfg.STATUS.UNMODIFIED;
     }
-    setDefinition(def: any) {
+
+    setDefinition(def: MQDefinition) {
         this.def = def;
         const self = this;
-        if (def.palettes == 'all') {
+        if (def.palettes && def.palettes.indexOf('all')>=0) {
             // Show all palettes
             // enable general palette
             tbConfig.default_toolbar_tabs.forEach(function (name) {
@@ -170,17 +170,17 @@ export class EditorPanel {
         }
     }
     showAnswer() {
-        if (!this.def.right_answer) {
-            console.log(this.def);
+        if(!this.def) {
+            console.error("Cannot show answer because def is null");
+            return;
+        }
+        if (!this.def.right_answer) { 
             console.error("Cannot show answer because, ", this.def.right_answer);
             return;
         }
         this.feedback_el.css("display", "");
         this.feedback_el.html(atob(this.def.right_answer) + '<p><br></p>');
         reflowLatex();
-    }
-    increment_wrong() {
-        this.wrong_attemps += 1;
-    }
+    } 
 
 };

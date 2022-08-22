@@ -14,7 +14,7 @@ export class LevelIndicator {
         }
     }
 
-    get $div() {
+    get $div() { 
         return this.container
     }
 

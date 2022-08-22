@@ -1,5 +1,7 @@
-import { cfg } from "./globals";
-import { reflowLatex } from "./utils";
+import { cfg } from "../globals";
+import { reflowLatex } from "../utils";
+import { EditorBase } from "./editorBase";
+import { EditorTAD } from "./editorTAD";
 
 /**
      * Multiple options with checkboxes
@@ -8,21 +10,17 @@ import { reflowLatex } from "./utils";
      * @param {*} options 
      * @param {*} multipleAnswers 
 */
-export class MultipleChoiceCheckbox {
+export class MultipleChoiceCheckbox extends EditorBase implements EditorTAD {
     multipleAnswers: boolean;
     selectedIndex: string;
-    gid: string;
-    qid: number;
     options: string[];
-    status: number;
-    parent: JQuery<HTMLDivElement>;
-    wrong_attemps: number;
     quill_el_container: JQuery<HTMLDivElement>;
     check_el: JQuery<HTMLDivElement>;
     btn_action: any;
-    def?: any;
-
+    qid: number;
+   
     constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string, multipleAnswers?: boolean) {
+        super(parent, gid)
         this.multipleAnswers = multipleAnswers || false;
         if (typeof (options) == 'string') {
             options = options.split(";");
@@ -89,9 +87,14 @@ export class MultipleChoiceCheckbox {
     focus() {
     }
 
-    latex(tex: string) {
-        return this.selectedIndex;
+    latex(tex?: string): string[] {
+        return [this.selectedIndex];
     }
+
+    get_qid(): number {
+        return this.qid
+    } 
+
     checkMsg(status: number, msg: string) {
         this.status = status;
         let msg2: string = '';
@@ -107,19 +110,13 @@ export class MultipleChoiceCheckbox {
         }
         this.check_el.html(msg2);
     }
-    get_qid() {
-        return this.qid;
-    }
+ 
     dispose() {
         this.quill_el_container.off();
     }
+
     reflow() {
         this.status = cfg.STATUS.UNMODIFIED;
     }
-    setDefinition(def: any) {
-        this.def = def;
-    }
-    increment_wrong() {
-        this.wrong_attemps += 1;
-    }
+ 
 }

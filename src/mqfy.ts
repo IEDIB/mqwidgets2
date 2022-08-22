@@ -10,12 +10,19 @@ const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) {
         const qtype = $(el).attr("data-mq") || 'simple';  //s=simple, b=basic, p=panel, c=cloze (requires data-mq-ini)
         if(hasValue(cfg.QTYPES, qtype)) {
             //create from data-attributes
+            console.error("Definition via data-attributes in deprecated since version 2.0. "
+            + "Please encode the definition in a single data-mq field.")
             createQuillFromDataAttr($el, gid);
         } else {
-            // Assume that everyting is encoded in data-mq atribute
-            const json_raw = atob(qtype);
-            const json_obj = JSON.parse(json_raw)
-            createQuillFromObject($el, gid, json_obj);
+            // Assume that everything is encoded in data-mq atribute
+            // Use the MQ-editor online
+            try {
+                const json_raw = atob(qtype);
+                const json_obj = JSON.parse(json_raw)
+                createQuillFromObject($el, gid, json_obj);
+            } catch(ex) {
+                console.error("Invalid or corrupted MQ definition:: ", qtype)
+            }
         }
     });
 };
@@ -47,7 +54,7 @@ export function findQuillGroups(parent?: JQuery<HTMLDivElement>) {
                         editor.reflow && editor.reflow();
                     });
                 });
-            }, 500);
+            }, 800);
         }
     });
 };

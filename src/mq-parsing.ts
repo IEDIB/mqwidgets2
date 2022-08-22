@@ -1,5 +1,6 @@
 import { createQuillFromObject } from "./createQuill";
 import { cfg } from "./globals";
+import { MQDefinition } from "./types";
 
 export function processMqIni(ini?: string) {
     ini = ini || '';
@@ -18,7 +19,7 @@ export function processMqIni(ini?: string) {
 }
 
 export function createQuillFromDataAttr($el: JQuery<HTMLDivElement>, gid: string) {
-    const qtype = $el.attr("data-mq");
+    const qtype = $el.attr("data-mq") || 'simple';
     let ans: any = $el.attr("data-mq-ans");
     // If not ans then it cannot be checked, so.
     let ansType = 'ans';
@@ -76,15 +77,15 @@ export function createQuillFromDataAttr($el: JQuery<HTMLDivElement>, gid: string
         });
     }
 
-    const obj: any = {
-        "editor": qtype,
-        "symbols": symbols,
-        "right_answer": ra,
-        "initial_latex": ini,
-        "rules": rules,
-        "palettes": palettes
+    const obj: MQDefinition = {
+        editor: qtype,
+        symbols: symbols,
+        right_answer: ra,
+        initial_latex: ini,
+        rules: rules,
+        palettes: palettes
     };
-    obj[ansType] = ans;
+    obj.ansType = ans;
     if ($el.attr("data-mq-formulation")) {
         obj.formulation = $el.attr("data-mq-formulation");
     }

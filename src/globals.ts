@@ -1,4 +1,4 @@
-import { DictStrKeys } from "./types";
+import { DictStrKeys, QuestionType } from "./types";
 
 let pageInfo = null;
 
@@ -17,7 +17,7 @@ const CAS_URL = "https://piworld.es/pigen/api/compare";
 const PYGEN_URL = "https://piworld.es/pigen/api/generate";
 const GETANSWER_URL = "https://piworld.es/pigen/api/getanswer";
 const BASE_URL = "https://piworld.es/iedib/matheditor";
-const QTYPES = {
+const QTYPES: {[name:string]:QuestionType} = {
     S: 'simple',
     B: 'basic',
     C: 'cloze',

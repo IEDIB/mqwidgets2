@@ -1,5 +1,5 @@
 import { bindSubmitActionButton } from "./actions";
-import { LevelIndicator } from "./components/LevelIndicator";
+import { LevelIndicator } from "./components/LevelIndicator"
 import { createQuillFromObject } from "./createQuill";
 import { cfg, shared } from "./globals";
 import { GoalChecker } from "./goalChecker";

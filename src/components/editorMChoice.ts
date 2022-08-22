@@ -1,20 +1,18 @@
 import { cfg } from "../globals";
 import { reflowLatex } from "../utils";
+import { EditorBase } from "./editorBase";
+import { EditorTAD } from "./editorTAD";
 
-export class MultipleChoiceCombo {
+export class EditorMChoice extends EditorBase implements EditorTAD {
     selectedIndex: string;
-    gid: string;
-    qid: number;
     options: any;
-    status: number;
-    parent: JQuery<HTMLDivElement>;
-    wrong_attemps: number;
     quill_el_container: JQuery<HTMLDivElement>;
     check_el: JQuery<HTMLDivElement>;
     btn_action: JQuery<HTMLButtonElement>;
-    def?: any;
-
+    qid: number;
+    
     constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string) {
+        super(parent, gid)
         if (typeof (options) == 'string') {
             options = options.split(";");
         }
@@ -70,8 +68,8 @@ export class MultipleChoiceCombo {
         this.btn_action.focus();
     }
 
-    latex(tex: string) {
-        return this.selectedIndex;
+    latex(tex?: string): string[] {
+        return [this.selectedIndex];
     }
 
     checkMsg(status: number, msg: string) {
@@ -90,23 +88,16 @@ export class MultipleChoiceCombo {
         this.check_el.html(msg2);
     }
 
-    get_qid() {
-        return this.qid;
-    }
-
     dispose() {
         this.quill_el_container.off();
     }
+
+    get_qid(): number {
+        return this.qid
+    } 
 
     reflow() {
         this.status = cfg.STATUS.UNMODIFIED;
     }
 
-    setDefinition(def: any) {
-        this.def = def;
-    }
-
-    increment_wrong() {
-        this.wrong_attemps += 1;
-    }
 }

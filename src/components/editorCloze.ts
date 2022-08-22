@@ -1,28 +1,21 @@
-import { cfg, shared } from "../globals";
+import { cfg, shared } from "../globals"; 
+import { MQ } from "../types";
 import { reflowLatex } from "../utils";
 import { PwDialog } from "./dialogs/dialog";
+import { EditorBase } from "./editorBase";
+import { EditorTAD } from "./editorTAD";
 
-export class EditorCloze {
-    gid: string;
-    status: number;
-    parent: JQuery<HTMLDivElement>;
-    wrong_attemps: number;
+export class EditorCloze extends EditorBase implements EditorTAD {
+   
     quill_el_container: JQuery<HTMLDivElement>;
     check_el: JQuery<HTMLDivElement>;
-    mathInput: any;
-    def?: any;
-    answerShown: boolean;
+    mathInput: MQ.MathField;
     dlg_btn_el: any;
 
     constructor(parent: JQuery<HTMLDivElement>, gid: string, ini: string) {
-        const self = this;
-        this.answerShown = false;
+        super(parent, gid)
+        const self = this; 
         this.dlg_btn_el = null;
-        this.gid = gid;
-        // status = 0 incorrecte, status = 1 correcte, status < 0 errors 
-        this.status = cfg.STATUS.UNMODIFIED;
-        this.parent = parent;
-        this.wrong_attemps = 0;
         this.quill_el_container = $('<div class="pw-me-editorinput"></div>') as JQuery<HTMLDivElement>;
         const quill_el = $('<span>' + ini + '</span>') as JQuery<HTMLSpanElement>;
         this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>;
@@ -31,8 +24,8 @@ export class EditorCloze {
         this.mathInput = shared.MQ.StaticMath(quill_el[0]);
         // TODO: listen to changes to set status to unmodified
 
-        this.mathInput.innerFields.forEach(function (e: any) {
-            e.__controller.textarea.on('keyup', function (ev: any) {
+        this.mathInput.innerFields.forEach(function (e: MQ.InnerField) {
+            e.__controller.textarea.on('keyup', function (ev) {
                 ev.preventDefault();
                 if (self.status != cfg.STATUS.MODIFIED) {
                     self.check_el.html('');
@@ -46,10 +39,7 @@ export class EditorCloze {
 
 
     clear() {
-        const v = this.mathInput.innerFields;
-        for (let i = 0, lenv = v.length; i < lenv; i++) {
-            v[i].latex('');
-        }
+        this.mathInput.innerFields.forEach( (v) => v.latex(''));
         this.check_el.html('');
         this.status = cfg.STATUS.UNMODIFIED;
         this.quill_el_container.removeClass('pw-me-right pw-me-wrong pw-me-alert');
@@ -59,7 +49,7 @@ export class EditorCloze {
         this.mathInput.focus();
     }
 
-    latex(tex?: string) {
+    latex(tex?: string): string[] {
         if (tex != null) {
             this.mathInput.latex(tex);
             this.status = cfg.STATUS.UNMODIFIED;
@@ -72,6 +62,7 @@ export class EditorCloze {
             }
             return parts;
         }
+        return []
     }
 
     checkMsg(status: number, msg: string) {
@@ -90,9 +81,9 @@ export class EditorCloze {
         this.check_el.html(msg2);
     }
 
-    get_qid() {
-        return this.mathInput.id;
-    }
+    get_qid(): number {
+        return this.mathInput.id
+    } 
 
     dispose() {
         this.mathInput.revert();
@@ -103,18 +94,14 @@ export class EditorCloze {
         this.mathInput.reflow();
         this.status = cfg.STATUS.UNMODIFIED;
     }
-
-    setDefinition(def: any) {
-        this.def = def;
-    }
-
-    increment_wrong() {
-        this.wrong_attemps += 1;
-    }
     
     showAnswer() {
+        if(!this.def) {
+            console.error("Cannot show answer because, def is null");
+            return;
+        }
         if (!this.def.right_answer) {
-            console.log("Cannot show answer because, ", this.def.right_answer);
+            console.error("Cannot show answer because, ", this.def.right_answer);
             return;
         }
 
@@ -152,10 +139,12 @@ export class EditorCloze {
 
         const dlg = shared["showAnswerDlg"];
         const answerHolder = dlg.window.find(".pw-answer-holder");
-        answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');
-        reflowLatex();
-        dlg.show();
-     
+        if(self.def) {
+            answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');
+            reflowLatex();
+            dlg.show();
+        }
+
     }
 
 }

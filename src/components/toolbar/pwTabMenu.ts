@@ -1,4 +1,4 @@
-import { items } from "../utils"
+import { items } from "../../utils"
 
 // TabMenu
 export class PwTabMenu {
