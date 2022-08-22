@@ -100,3 +100,6 @@ export function createLinkSheet(href: string, id?: string) {
     document.getElementsByTagName('head')[0].appendChild(link);
 }
 
+export function isNumeric(str: string): boolean {
+   return (str ||'').replace(/\s+/g,'').match(/^[+\-]?[0-9]+\.?[0-9]*$/)!=null
+}

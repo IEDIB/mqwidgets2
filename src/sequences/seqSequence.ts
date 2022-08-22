@@ -1,3 +1,4 @@
+import { isNumeric } from "../utils";
 import { SeqBasic } from "./seqBasic";
 import { SeqRandomWeighted } from "./seqRandomWeighted";
 
@@ -16,8 +17,8 @@ export class SeqSequence extends SeqBasic {
         const self = this;
 
         placeholders.forEach(function (p: string, i: number) {
-            const e = parseInt(p)
-            if (!isNaN(e) && self.terminalGen == null) {
+            if (isNumeric(p) && self.terminalGen == null) {
+                const e = parseInt(p)
                 for (let k = 0; k < e; k++) {
                     self.positions.push(i);
                 }

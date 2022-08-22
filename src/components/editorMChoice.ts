@@ -1,4 +1,5 @@
 import { cfg } from "../globals";
+import { MQDefinition, QuestionType } from "../types";
 import { reflowLatex } from "../utils";
 import { EditorBase } from "./editorBase";
 import { EditorTAD } from "./editorTAD";
@@ -11,8 +12,8 @@ export class EditorMChoice extends EditorBase implements EditorTAD {
     btn_action: JQuery<HTMLButtonElement>;
     qid: number;
     
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string) {
-        super(parent, gid)
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType, options: string[] | string) {
+        super(parent, gid, def, qtype)
         if (typeof (options) == 'string') {
             options = options.split(";");
         }
@@ -53,7 +54,11 @@ export class EditorMChoice extends EditorBase implements EditorTAD {
         this.quill_el_container.append(this.check_el);
         this.parent.append(this.quill_el_container);
         reflowLatex();
-    };
+    }
+    
+    showAnswer(): void {
+    
+    }
 
 
     clear() {

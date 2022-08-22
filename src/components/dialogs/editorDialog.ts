@@ -1,6 +1,8 @@
 // Editor panel (embeded in dialog)
 // Extends Dialog
 
+import { cfg } from "../../globals";
+import { MQDefinition } from "../../types";
 import { sanitizeLaTeX } from "../../utils";
 import { EditorPanel } from "../editorPanel";
 import { PwDialog } from "./dialog";
@@ -14,7 +16,10 @@ export class EditorDialog extends PwDialog {
     constructor() {
         super('<i style="color:darkred;" class="fas fa-square-root-alt"></i> Editor matemàtic', 500, 320);
         const self = this;
-        this.editorPanel = new EditorPanel(this.window, '0');   
+        const gid = 'gid_'+Math.random().toString(32).substring(2)
+        const qtype = cfg.QTYPES.P
+        const def = {} as MQDefinition
+        this.editorPanel = new EditorPanel(this.window, gid, def, qtype, false);   
         var controlButtons = $('<div class="pw-me-dlg-controls"></div>') as JQuery<HTMLDivElement>
         var acceptBtn = $('<button class="btn btn-sm btn-primary">Accepta</button>') as JQuery<HTMLButtonElement>
         var cancelBtn = $('<button class="btn btn-sm btn-outline-primary">Cancel·la</button>') as JQuery<HTMLButtonElement>
@@ -38,12 +43,12 @@ export class EditorDialog extends PwDialog {
         });
     }
 
-    latex(tex: string): string {
+    latex(tex: string): string[] {
         if(tex !=null) {
             this.editorPanel.latex(tex);
-            return ''
+            return ['']
         } else {
-            return sanitizeLaTeX(this.editorPanel.latex());
+            return this.editorPanel.latex().map((e)=> sanitizeLaTeX(e));
         }
     }
     //@override

@@ -104,8 +104,7 @@ import { findPyGenerators } from './findPyGenerators';
 applyPolyfills()
 
 const onLoad = function() {
-    loadPageInfo()
-    shared.MQ = window.MathQuill.getInterface(2);
+    loadPageInfo() 
     findQuillGroups();  // Groups of quills
     findPyGenerators(); // An interface for dynamic generated questions
 }

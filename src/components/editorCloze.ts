@@ -1,5 +1,5 @@
-import { cfg, shared } from "../globals"; 
-import { MQ } from "../types";
+import { cfg, shared, sharedDlg, StaticMath } from "../globals"; 
+import { MQ, MQDefinition, QuestionType } from "../types";
 import { reflowLatex } from "../utils";
 import { PwDialog } from "./dialogs/dialog";
 import { EditorBase } from "./editorBase";
@@ -12,8 +12,8 @@ export class EditorCloze extends EditorBase implements EditorTAD {
     mathInput: MQ.MathField;
     dlg_btn_el: any;
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, ini: string) {
-        super(parent, gid)
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType, ini: string) {
+        super(parent, gid, def, qtype)
         const self = this; 
         this.dlg_btn_el = null;
         this.quill_el_container = $('<div class="pw-me-editorinput"></div>') as JQuery<HTMLDivElement>;
@@ -21,7 +21,7 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>;
         this.parent.append(this.quill_el_container);
         this.quill_el_container.append(quill_el);
-        this.mathInput = shared.MQ.StaticMath(quill_el[0]);
+        this.mathInput = StaticMath(quill_el[0]);
         // TODO: listen to changes to set status to unmodified
 
         this.mathInput.innerFields.forEach(function (e: MQ.InnerField) {
@@ -35,8 +35,7 @@ export class EditorCloze extends EditorBase implements EditorTAD {
             });
         });
         this.quill_el_container.append(this.check_el);
-    };
-
+    } 
 
     clear() {
         this.mathInput.innerFields.forEach( (v) => v.latex(''));
@@ -110,9 +109,9 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         //this.quill_el_container.append(this.showAnswerBtn);
 
         // Must create a global dialog
-        if (!shared["showAnswerDlg"]) {
+        if (!sharedDlg["showAnswerDlg"]) {
             const dlg = new PwDialog("Resposta correcta", 400, 250);
-            shared["showAnswerDlg"] = dlg;
+            sharedDlg["showAnswerDlg"] = dlg;
             const answerHolder = $('<div class="pw-answer-holder"></div>');
             dlg.append(answerHolder);
             const closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">Tancar</button>');
@@ -125,8 +124,8 @@ export class EditorCloze extends EditorBase implements EditorTAD {
 
         // this.showAnswerBtn.on('click', function(ev){
         // ev.preventDefault();
-        if (!self.answerShown) {
-            self.answerShown = true;
+        if (!self.isAnswerShown) {
+            self.isAnswerShown = true;
             self.status = cfg.STATUS.UNMODIFIED;
             //Disable mathquill
             //self.quill_blocker.addClass('pw-me-blocker');
@@ -137,7 +136,7 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         }
 
 
-        const dlg = shared["showAnswerDlg"];
+        const dlg = sharedDlg["showAnswerDlg"];
         const answerHolder = dlg.window.find(".pw-answer-holder");
         if(self.def) {
             answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');

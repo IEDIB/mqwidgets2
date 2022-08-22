@@ -1,5 +1,5 @@
-import { cfg, shared } from "../globals";
-import { MQ } from "../types";
+import { cfg, MathField, shared, sharedDlg } from "../globals";
+import { MQ, MQDefinition, QuestionType } from "../types";
 import { reflowLatex, sanitizeLaTeX } from "../utils";
 import { PwDialog } from "./dialogs/dialog";
 import { EditorDialog } from "./dialogs/editorDialog";
@@ -11,11 +11,10 @@ export class EditorInput extends EditorBase implements EditorTAD {
     quill_blocker: JQuery<HTMLElement>;
     check_el: JQuery<HTMLElement>;
     mathInput: MQ.MathField;
-    dlg_btn_el: JQuery<HTMLElement> | undefined;
-    isPigen?: boolean;
+    dlg_btn_el: JQuery<HTMLElement> | undefined; 
 
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, qtype: string) {
-        super(parent, gid)
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType) {
+        super(parent, gid, def, qtype)
         var self = this;
         this.quill_el_container = $('<div class="pw-me-editorinput"></div>');
         this.quill_blocker = $('<div></div>')
@@ -27,7 +26,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
 
         this.parent.append(this.quill_el_container);
 
-        this.mathInput = shared.MQ.MathField(quill_el[0], {
+        this.mathInput = MathField(quill_el[0], {
             handlers: {
                 edit: function () {
                     console.log("Edit ev on mathquill ", self.mathInput.latex());
@@ -47,10 +46,10 @@ export class EditorInput extends EditorBase implements EditorTAD {
                 ev.preventDefault();
                 // open a editordlg
                 // must do the binding when closing
-                var dlg: EditorDialog = shared['editordlg'];
+                var dlg: EditorDialog = sharedDlg['editordlg'] as EditorDialog;
                 if (!dlg) {
                     dlg = new EditorDialog();
-                    shared['editordlg'] = dlg;
+                    sharedDlg['editordlg'] = dlg;
                 }
                 dlg.acceptFn = function (self2: any) {
                     self.mathInput.latex(self2.latex());
@@ -62,7 +61,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
             });
         }
         this.quill_el_container.append(this.check_el);
-    }
+    } 
 
     get_qid(): number {
         return this.mathInput.id
@@ -127,9 +126,9 @@ export class EditorInput extends EditorBase implements EditorTAD {
         //this.quill_el_container.append(this.showAnswerBtn);
 
         // Must create a global dialog
-        if (!shared["showAnswerDlg"]) {
+        if (!sharedDlg["showAnswerDlg"]) {
             var dlg = new PwDialog("Resposta correcta", 400, 250);
-            shared["showAnswerDlg"] = dlg;
+            sharedDlg["showAnswerDlg"] = dlg;
             var answerHolder = $('<div class="pw-answer-holder"></div>');
             dlg.append(answerHolder);
             var closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">Tancar</button>');
@@ -141,8 +140,8 @@ export class EditorInput extends EditorBase implements EditorTAD {
         }
         // this.showAnswerBtn.on('click', function(ev){
         // ev.preventDefault();
-        if (!self.answerShown) {
-            self.answerShown = true;
+        if (!self.isAnswerShown) {
+            self.isAnswerShown = true;
             self.status = cfg.STATUS.UNMODIFIED;
             // Disable mathquill
             self.quill_blocker.addClass('pw-me-blocker');
@@ -153,7 +152,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
         }
 
 
-        var dlg = shared["showAnswerDlg"] as PwDialog;
+        var dlg = sharedDlg["showAnswerDlg"];
         var answerHolder = dlg.window.find(".pw-answer-holder");
         if (self.def) {
             answerHolder.html(atob(self.def.right_answer) + '<p><br></p>');

@@ -269,10 +269,11 @@ export function findPyGenerators () {
         nextButton.on('click', function(ev){
             ev.preventDefault();  
             // Remove existing widgets from this gid
-            const keys = Object.keys(shared[gid] || {});
+            const keys = Object.keys(shared[gid] || {});
             for(let i=0, lin=keys.length; i<lin; i++) {
-                shared[gid][keys[i]].dispose();
-                delete shared[gid][keys[i]];
+                const qid = parseInt(keys[i])
+                shared[gid][qid].dispose();
+                delete shared[gid][qid];
             }
             createDynamicMathquill();
         });

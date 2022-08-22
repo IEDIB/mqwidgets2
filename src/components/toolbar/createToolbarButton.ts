@@ -1,4 +1,4 @@
-import { shared } from "../../globals";
+import { shared, StaticMath } from "../../globals";
 import { DictStrKeys } from "../../types";
 
 // Create a button for toolbar tab
@@ -7,7 +7,7 @@ export function createToolbarButton(parent: JQuery<HTMLDivElement>, btn_meta:any
     if(typeof(btn_meta.latex) === "function") {
         var btn = $('<div class="btn btn-sm pw-me-btn-toolbar pw-me-btn-dropdown" title="' + key.trim() + '"></div>');
         var icon = $('<span>'+btn_meta.icon+'</span>');
-        shared.MQ.StaticMath(icon[0]);
+        StaticMath(icon[0]);
         btn.append(icon);
 
         var panell = $('<div class="pw-me-btn-dropdownmenu"></div>')
@@ -66,7 +66,7 @@ export function createToolbarButton(parent: JQuery<HTMLDivElement>, btn_meta:any
     } else {
         btn = $('<button class="btn btn-sm pw-me-btn-toolbar" title="' + key.trim() + '"></button>') as JQuery<HTMLElement>;
         var icon = $('<span>'+btn_meta.icon+'</span>');
-        shared.MQ.StaticMath(icon[0]);
+        StaticMath(icon[0]);
         btn.append(icon);
 
         // simple button

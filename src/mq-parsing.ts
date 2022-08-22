@@ -83,9 +83,10 @@ export function createQuillFromDataAttr($el: JQuery<HTMLDivElement>, gid: string
         right_answer: ra,
         initial_latex: ini,
         rules: rules,
-        palettes: palettes
+        palettes: palettes,
+        ans: ans,
+        ansType: ansType
     };
-    obj.ansType = ans;
     if ($el.attr("data-mq-formulation")) {
         obj.formulation = $el.attr("data-mq-formulation");
     }

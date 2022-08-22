@@ -1,13 +1,8 @@
-import { DictStrKeys, QuestionType } from "./types";
+import { MQ, QuestionType, SharedContainer, SharedDlgContainer } from "./types";
 
 let pageInfo = null;
 
-export function loadPageInfo() {
-    if (window.iedibAPI) {
-        pageInfo = window.iedibAPI.getPageInfo();
-        console.log(pageInfo);
-    }
-}
+
 
 const HAS_IAPACE = window["IB"] && window["IB"].iapace;
 const RIGHT_ICON = 'fas fa-check'; //'far fa-smile'; //
@@ -46,4 +41,25 @@ export const cfg = {
     WRONG_ICON
 } 
 
-export const shared: DictStrKeys = {};
+ 
+
+export function loadPageInfo() {
+    if (window.iedibAPI) {
+        pageInfo = window.iedibAPI.getPageInfo();
+        console.log(pageInfo);
+    }
+}
+
+export function StaticMath(div: HTMLElement): MQ.MathField {
+    const MQI: MQ.MathQuill = window.MathQuill.getInterface(2);
+    return MQI.StaticMath(div)
+}
+
+export function MathField(div: HTMLElement, config: MQ.IMathFieldConfig): MQ.MathField {
+    const MQI: MQ.MathQuill = window.MathQuill.getInterface(2);
+    return MQI.MathField(div, config)
+}
+
+export const shared: SharedContainer = {};
+
+export const sharedDlg: SharedDlgContainer = {};

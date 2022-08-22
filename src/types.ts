@@ -1,3 +1,7 @@
+import { PwDialog } from "./components/dialogs/dialog";
+import { EditorDialog } from "./components/dialogs/editorDialog";
+import { EditorTAD } from "./components/editorTAD";
+
 export interface IedibAPIStruct {
     getPageInfo: Function
 }
@@ -72,6 +76,7 @@ export interface IBStruct {
      }
  
      export class MathQuill {
+         StaticMath(div: HTMLElement): MathField;
          MathField(div: HTMLElement, config: IMathFieldConfig): MathField;
      }
  }
@@ -108,3 +113,8 @@ export interface MQDefinition {
  */
 export type DictStrKeys = { [name: string]: any}
 
+export type SharedContainer = {[name: string]: {
+    [name: number]: EditorTAD
+}}
+
+export type SharedDlgContainer = {[name: string]: PwDialog}

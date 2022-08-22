@@ -1,4 +1,5 @@
 import { cfg } from "../globals";
+import { MQDefinition, QuestionType } from "../types";
 import { reflowLatex } from "../utils";
 import { EditorBase } from "./editorBase";
 import { EditorTAD } from "./editorTAD";
@@ -10,7 +11,7 @@ import { EditorTAD } from "./editorTAD";
      * @param {*} options 
      * @param {*} multipleAnswers 
 */
-export class MultipleChoiceCheckbox extends EditorBase implements EditorTAD {
+export class EditorMChoiceCheckbox extends EditorBase implements EditorTAD {
     multipleAnswers: boolean;
     selectedIndex: string;
     options: string[];
@@ -19,12 +20,10 @@ export class MultipleChoiceCheckbox extends EditorBase implements EditorTAD {
     btn_action: any;
     qid: number;
    
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, options: string[] | string, multipleAnswers?: boolean) {
-        super(parent, gid)
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType, multipleAnswers?: boolean) {
+        super(parent, gid, def, qtype)
         this.multipleAnswers = multipleAnswers || false;
-        if (typeof (options) == 'string') {
-            options = options.split(";");
-        }
+        let options = def.symbols 
         const self = this;
         this.selectedIndex = '';
         this.gid = gid;
@@ -74,7 +73,10 @@ export class MultipleChoiceCheckbox extends EditorBase implements EditorTAD {
         this.quill_el_container.append(this.check_el);
         this.parent.append(this.quill_el_container);
         reflowLatex();
-    };
+    }
+    
+    showAnswer(): void {
+    }
 
     clear() {
         this.selectedIndex = '';

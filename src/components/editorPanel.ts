@@ -1,11 +1,11 @@
-import { cfg, shared } from "../globals";
+import { cfg, MathField, shared } from "../globals";
 import { items, reflowLatex, sanitizeLaTeX } from "../utils";
 import { PwTabMenu } from "./toolbar/pwTabMenu";
 import { createToolbarButton } from "./toolbar/createToolbarButton";
 import tbConfig from "./toolbar/toolbar-config"
 import { EditorTAD } from "./editorTAD";
 import { EditorBase } from "./editorBase";
-import { MQDefinition } from "../types";
+import { MQDefinition, QuestionType } from "../types";
 
 // Editor panel
 export class EditorPanel extends EditorBase implements EditorTAD {
@@ -16,8 +16,8 @@ export class EditorPanel extends EditorBase implements EditorTAD {
     check_el: JQuery<HTMLDivElement> | undefined;
     feedback_el: JQuery<HTMLDivElement>;
    
-    constructor(parent: JQuery<HTMLDivElement>, gid: string, standalone?: boolean) {
-        super(parent, gid)
+    constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType, standalone?: boolean) {
+        super(parent, gid, def, qtype)
         const self = this;
         this.parent = parent;
         this.gid = gid;
@@ -36,7 +36,7 @@ export class EditorPanel extends EditorBase implements EditorTAD {
             $('.pw-me-btn-dropdownmenu').css("display", "none");
         });
         this.panel.append(spanMathInput);
-        this.mathInput = shared.MQ.MathField(spanMathInput[0], {
+        this.mathInput = MathField(spanMathInput[0], {
             handlers: {
                 edit() {
                     if (standalone && self.status != cfg.STATUS.MODIFIED) {
@@ -65,8 +65,8 @@ export class EditorPanel extends EditorBase implements EditorTAD {
             self.palettes.addContentsToTab(tabName, aButton);
         })
 
-    }
-
+    } 
+    
     get $div() {
         return this.panel
     }
