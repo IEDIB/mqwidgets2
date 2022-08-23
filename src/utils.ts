@@ -5,6 +5,7 @@ declare global {
         MathJax?: any; 
         iedibAPI?: IedibAPIStruct;
         IB?: IBStruct;
+        MQWidgets: any;
         MathQuill?: any;
         Confetti?: any;
     }

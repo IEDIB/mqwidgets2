@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 50px auto;
+            max-width: 500px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <p>Calcula:</p>
+
+    <div class="pw-mq-group">
+        <p>Intervals</p>
+        <p data-mq="simple" data-mq-palettes="intervals,general" data-mq-formulation=" --> "
+            data-mq-ans="Interval.open(-3,3)">a) Tots els nombres majors que -3 i menors que 3</p>
+        <p data-mq="simple" data-mq-palettes="intervals,general" data-mq-formulation=" --> "
+            data-mq-ans="Interval(-3,3)">a) Tots els nombres majors que -3 i menors que 3 inclosos</p>
+        <p data-mq="simple" data-mq-palettes="intervals,general" data-mq-formulation=" --> "
+            data-mq-ans="Interval.open(-3,oo)">a) Tots els nombres majors que -3 </p>
+        <p data-mq="simple" data-mq-palettes="intervals,general" data-mq-formulation=" --> "
+            data-mq-ans="Interval.Ropen(-3,oo)">a) Tots els nombres majors que -3 inclòs </p>
+        <p data-mq="simple" data-mq-palettes="intervals,general" data-mq-formulation=" --> "
+            data-mq-ans="Interval.open(-oo, 3)">a) Tots els nombres menors que 3 </p>
+    </div>
+
+
+    <div class="pw-mq-group">
+        <p>Aritmètica</p>
+        <p
+            data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJzeW1ib2xzIjpbImE6PTEiLCJiOj0xIl0sImFucyI6ImErYiIsImluaSI6IiIsInJ1bGVzIjpbXX0=">
+            a) \(1+1\)=</p>
+        <p data-mq-ans="9*5" data-mq="basic">b) \(9\cdot 5\)=</p>
+        <p data-mq-ans="sqrt(49)" data-mq="basic">c) \(\sqrt{49}\)=</p>
+        <p data-mq-ans="[4,2]" data-mq="cloze" data-mq-ini="\sqrt[?]{?}">c) \(\sqrt{\sqrt{2} }\)=</p>
+
+    </div>
+
+    <div class="pw-mq-group">
+        <p data-mq="mchoice*" data-mq-ans="3" data-mq-symbols="Opció 1;Opció 2;Opció 3;Opció 4">La correcta és la 4 </p>
+
+        <p data-mq="mchoice" data-mq-ans="3" data-mq-symbols="Opció 1;Opció 2;Opció 3;Opció 4">La correcta és la 4 </p>
+    </div>
+
+    <div class="pw-mq-group">
+        <p>Àlgebra</p>
+        <p data-mq-ans="A**2" data-mq-symbols="A:=Matrix([[1,0,1],[0,0,1],[1,1,0]])" data-mq="simple"
+            data-mq-ini="M[3x3]">
+            a) \(\left(\begin{matrix} 1 & 0 & 1\\ 0 & 0 & 1 \\1 & 1 & 0\end{matrix}\right)^2\)=</p>
+        <p data-mq-ans="A.T*A" data-mq-symbols="A:=Matrix([[1,0,1],[0,0,1],[1,1,0]])" data-mq="simple"
+            data-mq-ini="M[3x3]">
+            b) \(A=\left(\begin{matrix} 1 & 0 & 1\\ 0 & 0 & 1 \\1 & 1 & 0\end{matrix}\right);\quad A^t\cdot A\)=</p>
+    </div>
+
+
+    <div class="pw-mq-group">
+        <p>Polinomis</p>
+        <p data-mq-ans="factor(x**2+x-2)" data-mq="simple" data-mq-rules='{"factor":true}'>
+            a) Factoritza \(P(x)=x^2+x-2\) </p>
+        <p data-mq-ans="expand((x+4)**2)" data-mq="panel" data-mq-palettes="all" data-mq-rules='{"factor":false}'>
+            b) Expandeix \((x+4)^2\) </p>
+    </div>
+
+    <div data-pygen-formulation="Calcula" data-pygen-mq="simple"
+        data-pygen="arithmetics.complex.complex_tasks.complex_binomic_operations[r=5,complexity=1]"></div>
+
+
+    <script src="../dist/mqwidgets2.js"></script>
+</body>
+
+</html>

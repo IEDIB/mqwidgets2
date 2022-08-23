@@ -96,31 +96,27 @@
  */
 
 import { applyPolyfills } from './polyfills';
-import { cfg, loadPageInfo, shared } from './globals'
+import { cfg } from './globals'
 import { createLinkSheet, insertScript } from "./utils"; 
 import { findQuillGroups } from './mqfy';
 import { findPyGenerators } from './findPyGenerators';
 
 applyPolyfills()
 
-const onLoad = function() {
-    loadPageInfo() 
-    findQuillGroups();  // Groups of quills
-    findPyGenerators(); // An interface for dynamic generated questions
+window.MQWidgets = {
+    reflow: function() {
+        findQuillGroups();  // Groups of mquills
+        findPyGenerators(); // An interface for dynamic generated questions
+    }
+}
+
+const onLoad = function() { 
+    window.MQWidgets.reflow();
 }
 
 // Inject required dependencies on the page
 // On jquery ready
 $(function() {
-    createLinkSheet(cfg.BASE_URL + "/lib/mathquill.matrix.css");
-    //check if iedibAPI is in page
-    if(window.iedibAPI) {
-        insertScript(cfg.BASE_URL + "/lib/mathquill.matrix.min.js", onLoad);
-    } else {
-        insertScript('https://piworld.es/iedib/assets/iedib-api.js',
-            function() {
-                insertScript(cfg.BASE_URL + "/lib/mathquill.matrix.min.js", onLoad)
-            }
-        );
-    }
+    createLinkSheet(cfg.BASE_URL + "/mqwidgets2.css");
+    insertScript(cfg.BASE_URL + "/lib/mathquill.matrix.min.js", onLoad);
 });

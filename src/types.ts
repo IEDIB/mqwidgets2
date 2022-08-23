@@ -1,13 +1,27 @@
-import { PwDialog } from "./components/dialogs/dialog";
-import { EditorDialog } from "./components/dialogs/editorDialog";
+import { PwDialog } from "./components/dialogs/dialog"; 
 import { EditorTAD } from "./components/editorTAD";
 
 export interface IedibAPIStruct {
-    getPageInfo: Function
+    getPageInfo: Function,
+    lliurament: {id: number, title: string}
 }
 
 export interface IBStruct {
     iapace?: any
+}
+
+export interface PageInfo {
+    userId: number, 
+    userFullname: string, 
+    bookId: string, 
+    chapterId: string, 
+    assignNum: number,
+    assignName: string,
+    courseName?: string, 
+    courseId: string, 
+    isTeacher: number, 
+    site: string, 
+    moodleSession: string
 }
 
 /**
