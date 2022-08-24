@@ -27,7 +27,7 @@ export class EditorPanel extends EditorBase implements EditorTAD {
         this.status = cfg.STATUS.UNMODIFIED;
         this.panel = $('<div class="pw-me-editorpanel" style="position:relative"></div>') as JQuery<HTMLDivElement>;
         this.parent.append(this.panel);
-        this.palettes = new PwTabMenu(this.panel);
+        this.palettes = new PwTabMenu(this.panel, this.gid);
         
         this.spanMathInput = $('<span class="pw-me-editorpanel-mathinput"></span>') as JQuery<HTMLSpanElement>;
         this.spanMathInput.on("click", function (ev) {

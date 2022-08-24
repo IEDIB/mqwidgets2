@@ -1,6 +1,6 @@
 import { createSubmitButtonForGroup } from "./actions";
 import { createQuillFromObject } from "./createQuill";
-import { cfg, shared } from "./globals";
+import { cfg, shared, sharedContext } from "./globals";
 import { createQuillFromDataAttr, processMqIni } from "./mq-parsing";
 import { hasValue, items } from "./utils";
 
@@ -30,6 +30,19 @@ const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) {
     });
 };
 
+function parseContext($eg: JQuery<HTMLElement>, gid: string): void {
+
+    const ctx: any = {};  // Hold the context of this group
+
+    if($eg.prop("data-lang")) {
+        ctx.lang = $eg.prop("data-lang")
+    }
+    //TODO with other properties of a group
+
+    sharedContext[gid] = ctx;
+
+}
+
 export function findQuillGroups(parent?: JQuery<HTMLDivElement>) {
     parent = parent || $('body');
     parent.find(".pw-mq-group").each(function (j, eg) {
@@ -44,7 +57,8 @@ export function findQuillGroups(parent?: JQuery<HTMLDivElement>) {
             gid = 'g_' + Math.random().toString(32).substring(2);
             $eg.attr("id", gid);
         } 
-        shared[gid] = {};
+        shared[gid] = {};  //Hold all the editors
+        parseContext($eg, gid); 
         findQuills($eg, gid);
         const check_btn = createSubmitButtonForGroup(gid);
         $eg.append(check_btn);

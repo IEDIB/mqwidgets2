@@ -1,6 +1,7 @@
 import { has_empty_answers } from "./checking";
 import { EditorTAD } from "./components/editorTAD";
 import { cfg, shared } from "./globals";
+import { I18n } from "./I18n";
 import { copyPropsFromTo, isNumeric, MD5 } from "./utils";
 
 let LAST_AJAX = new Date().getTime()
@@ -139,8 +140,8 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
     }); 
 };
 
-export function createSubmitButtonForGroup (gid: string) {
-    var check_btn = $('<button class="btn btn-sm btn-primary pw-me-submitgroup"><i class="fas fa-check"></i> Comprova</button>') as JQuery<HTMLButtonElement>;
+export function createSubmitButtonForGroup (gid: string) { 
+    var check_btn = $(`<button class="btn btn-sm btn-primary pw-me-submitgroup"><i class="fas fa-check"></i> ${I18n('check', gid)}</button>`) as JQuery<HTMLButtonElement>;
     bindSubmitActionButton(gid, check_btn);
     return check_btn;
 };

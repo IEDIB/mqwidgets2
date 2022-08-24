@@ -1,3 +1,4 @@
+import { I18n } from "../../I18n"
 import { items } from "../../utils"
 
 // TabMenu
@@ -8,8 +9,9 @@ export class PwTabMenu {
     currentTab: JQuery<HTMLElement> | null
     tabsPanel: JQuery<HTMLDivElement>
     contentsPanel: JQuery<HTMLDivElement>
+    gid: string | undefined
 
-    constructor(parent?: JQuery<HTMLElement>) { 
+    constructor(parent?: JQuery<HTMLElement>, gid?: string) { 
         this.$panel = $('<div class="pw-me-tabmenu"></div>') as JQuery<HTMLDivElement>
         this.parent = parent;
         this.tabs = {};
@@ -21,6 +23,7 @@ export class PwTabMenu {
         if(this.parent) {
             this.parent.append(this.$panel);
         }
+        this.gid = gid
     }
 
     get $div() {
@@ -33,7 +36,7 @@ export class PwTabMenu {
             return;
         }
         var self = this;
-        var tab = $('<button style="display:none;" class="btn btn-sm pw-me-btn-tab">' + name + '</button>');
+        var tab = $('<button style="display:none;" class="btn btn-sm pw-me-btn-tab">' + I18n(name, this.gid) + '</button>');
         var container = $('<div style="display:none;" class="pw-me-tabcontainer"></div>');
         tab.on('click', function(ev){
             ev.preventDefault();

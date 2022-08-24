@@ -90,7 +90,7 @@
             $el.css('position', 'relative');
             var anchor = $('<a href="#" target="_blank">Edit me</a>');
             anchor.css({'position': 'absolute', 'bottom':0, 'right':0});
-            var href = 'https://iedib.github.io/mqwidgets2-editor/dist/?doc='+btoa($el.html())
+            var href = 'https://iedib.github.io/mqwidgets2-editor/dist/?doc='+btoa($el.prop('outerHTML'));
             anchor.prop('href', href);
             $el.append(anchor);
         })

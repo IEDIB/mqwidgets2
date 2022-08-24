@@ -39,8 +39,11 @@ export function createQuillFromObject($el: JQuery<HTMLDivElement>, gid: string, 
         const multipleAnswers = Array.isArray(obj.ans);
         //created = new MultipleChoiceCombo($el, gid, obj.symbols);
         created = new EditorMChoiceCheckbox($el, gid, obj, cfg.QTYPES.Ms, multipleAnswers); 
+    } else if (qtype == cfg.QTYPES.B) {
+        // basic quill
+        created = new EditorInput($el, gid, obj, cfg.QTYPES.B); 
     } else {
-        // Simple or basic quill input
+        // Simple quill input
         created = new EditorInput($el, gid, obj, cfg.QTYPES.S); 
     }
     const qid = created.get_qid();

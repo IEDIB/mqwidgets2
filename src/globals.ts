@@ -1,4 +1,4 @@
-import { MQ, PageInfo, QuestionType, SharedContainer, SharedDlgContainer } from "./types";
+import { MQ, PageInfo, QuestionType, SharedContainer, SharedContextContainer, SharedDlgContainer } from "./types";
 
 /**
  * Extracts useful information from the current Moodle page
@@ -167,3 +167,5 @@ export function MathField(div: HTMLElement, config: MQ.IMathFieldConfig): MQ.Mat
 export const shared: SharedContainer = {};
 
 export const sharedDlg: SharedDlgContainer = {};
+
+export const sharedContext: SharedContextContainer = {};

@@ -132,3 +132,5 @@ export type SharedContainer = {[name: string]: {
 }}
 
 export type SharedDlgContainer = {[name: string]: PwDialog}
+
+export type SharedContextContainer = {[name: string]: any}

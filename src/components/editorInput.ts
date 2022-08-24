@@ -1,4 +1,5 @@
 import { cfg, MathField, shared, sharedDlg } from "../globals";
+import { I18n } from "../I18n";
 import { MQ, MQDefinition, QuestionType } from "../types";
 import { reflowLatex, sanitizeLaTeX } from "../utils";
 import { PwDialog } from "./dialogs/dialog";
@@ -40,7 +41,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
         });
 
         if (isBtn) {
-            this.dlg_btn_el = $('<button class="btn btn-sm pw-me-btn-openeditor" title="Obrir l\'editor"><i class="fas fa-square-root-alt"></i></button>');
+            this.dlg_btn_el = $('<button class="btn btn-sm pw-me-btn-openeditor" title="'+I18n('open_editor', this.gid)+'"><i class="fas fa-square-root-alt"></i></button>');
             this.quill_el_container.append(this.dlg_btn_el);
             this.dlg_btn_el.on("click", function (ev) {
                 ev.preventDefault();
@@ -123,11 +124,11 @@ export class EditorInput extends EditorBase implements EditorTAD {
 
         // Must create a global dialog
         if (!sharedDlg["showAnswerDlg"]) {
-            var dlg = new PwDialog("Resposta correcta", 400, 250);
+            var dlg = new PwDialog(I18n('right_answer', this.gid), 400, 250);
             sharedDlg["showAnswerDlg"] = dlg;
             var answerHolder = $('<div class="pw-answer-holder"></div>');
             dlg.append(answerHolder);
-            var closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">Tancar</button>');
+            var closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">'+I18n('close', this.gid)+'</button>');
             dlg.append(closeBtn);
             closeBtn.on('click', function (ev) {
                 ev.preventDefault();
@@ -166,7 +167,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
             console.log("creating a rescue", this.def);
 
             // create a button to display answer
-            var rescueBtn = $('<button class="btn btn-sm" title="Mostra la solució"><i class="far fa-question-circle"></i></button>');
+            var rescueBtn = $('<button class="btn btn-sm" title="'+I18n('show_answer',this.gid)+'"><i class="far fa-question-circle"></i></button>');
             var self = this;
             rescueBtn.on("click", function (evt) {
                 self.showAnswer();
