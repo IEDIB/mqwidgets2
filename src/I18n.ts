@@ -16,7 +16,10 @@ const TRANSLATIONS: any = {
         "next": "Següent",
         "goal_reached": "Repte aconseguit!",
         "wildcard": "Comodí",
-        "answer": "Solució"
+        "answer": "Solució",
+        "matheditor": "Editor matemàtic",
+        "accept": "Acceptar",
+        "cancel": "Cancel·lar"
     },
     es: {
         'check': 'Comprueba',
@@ -33,7 +36,10 @@ const TRANSLATIONS: any = {
         "next": "Siguiente",
         "goal_reached": "¡Reto conseguido!",
         "wildcard": "Comodín",
-        "answer": "Solución"
+        "answer": "Solución",
+        "matheditor": "Editor matemático",
+        "accept": "Aceptar",
+        "cancel": "Cancelar"
     },
     en: {
         'check': 'Check',
@@ -50,7 +56,11 @@ const TRANSLATIONS: any = {
         "next": "Next",
         "goal_reached": "Goal acomplished!",
         "wildcard": "Wildcard",
-        "answer": "Answer"
+        "answer": "Answer",
+        "matheditor": "Math editor",
+        "accept": "Accept",
+        "cancel": "Cancel"
+        
     }
 };
  
@@ -73,6 +83,7 @@ function getBrowserLang(): string {
 }
  
 const systemLang = getBrowserLang()
+console.error("SystemLang: ", systemLang)
 
 export function I18n(key: string, gid?: string): string {
     let lang = systemLang
