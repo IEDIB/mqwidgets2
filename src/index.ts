@@ -97,18 +97,18 @@
 
 import { applyPolyfills } from './polyfills';
 import { cfg } from './globals'
-import { createLinkSheet, insertScript } from "./utils"; 
+import { createLinkSheet, insertScript, urlJoin } from "./utils"; 
 import { findQuillGroups } from './mqfy';
 import { findPyGenerators } from './findPyGenerators';
 
 applyPolyfills()
 
-window.MQWidgets = {
-    reflow: function() {
+window.MQWidgets = window.MQWidgets || {}
+window.MQWidgets.reflow = function() {
         findQuillGroups();  // Groups of mquills
         findPyGenerators(); // An interface for dynamic generated questions
     }
-}
+
 
 const onLoad = function() { 
     window.MQWidgets.reflow();
@@ -117,6 +117,6 @@ const onLoad = function() {
 // Inject required dependencies on the page
 // On jquery ready
 $(function() {
-    createLinkSheet(cfg.BASE_URL + "/mqwidgets2.css");
-    insertScript(cfg.BASE_URL + "/lib/mathquill.matrix.min.js", onLoad);
+    createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
+    insertScript(cfg.MATHQUILL_URL, onLoad);
 });

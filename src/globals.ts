@@ -1,4 +1,5 @@
 import { MQ, PageInfo, QuestionType, SharedContainer, SharedContextContainer, SharedDlgContainer } from "./types";
+import { urlJoin } from "./utils";
 
 /**
  * Extracts useful information from the current Moodle page
@@ -114,10 +115,18 @@ const HAS_IAPACE = window["IB"] && window["IB"].iapace;
 const RIGHT_ICON = 'fas fa-check'; //'far fa-smile'; //
 const WRONG_ICON = 'fas fa-times'; //'far fa-dizzy'; //
 const MAX_ATTEMPTS = 2;  // Maximum number of wrong attempts before showing right answer
-const CAS_URL = "https://piworld.es/pigen/api/compare";
-const PYGEN_URL = "https://piworld.es/pigen/api/generate";
-const GETANSWER_URL = "https://piworld.es/pigen/api/getanswer";
-const BASE_URL = "https://piworld.es/iedib/matheditor";
+
+// Decide from where to load resources
+window.MQWidgets = window.MQWidgets || {}
+
+const BACKEND_BASEURL = window.MQWidgets.BACKEND_BASEURL || "https://piworld.es/pigen/api/"
+
+const CAS_URL = urlJoin(BACKEND_BASEURL, "compare");
+const PYGEN_URL = urlJoin(BACKEND_BASEURL, "generate");
+const GETANSWER_URL = urlJoin(BACKEND_BASEURL, "getanswer");
+const MQWIDGETS_BASEURL =  window.MQWidgets.MQWIDGETS_BASEURL || "https://iedib.github.io/mqwidgets2/dist/";
+const MATHQUILL_URL =  window.MQWidgets.MATHQUILL_URL || "https://iedib.github.io/mqwidgets2/lib/mathquill.matrix.min.js";
+
 const QTYPES: {[name:string]:QuestionType} = {
     S: 'simple',
     B: 'basic',
@@ -134,7 +143,8 @@ const STATUS = {
 };
 
 export const cfg = {
-    BASE_URL,
+    MQWIDGETS_BASEURL,
+    MATHQUILL_URL,
     pageInfo,
     STATUS,
     QTYPES,

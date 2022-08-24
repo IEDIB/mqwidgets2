@@ -104,3 +104,15 @@ export function createLinkSheet(href: string, id?: string) {
 export function isNumeric(str: string): boolean {
    return (str ||'').replace(/\s+/g,'').match(/^[+\-]?[0-9]+\.?[0-9]*$/)!=null
 }
+
+export function urlJoin(url1: string, url2: string): string {
+    url1 = url1.trim()
+    url2 = url2.trim()
+    if(!url1.endsWith('/')) {
+        url1 += '/'
+    }
+    if(url2.startsWith('/')) {
+        url2 = url2.substring(1)
+    }
+    return url1+url2
+}
