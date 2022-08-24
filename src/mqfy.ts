@@ -1,7 +1,7 @@
 import { createSubmitButtonForGroup } from "./actions";
 import { createQuillFromObject } from "./createQuill";
 import { cfg, shared } from "./globals";
-import { createQuillFromDataAttr } from "./mq-parsing";
+import { createQuillFromDataAttr, processMqIni } from "./mq-parsing";
 import { hasValue, items } from "./utils";
 
 const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) { 
@@ -19,9 +19,12 @@ const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) {
             try {
                 const json_raw = atob(qtype);
                 const json_obj = JSON.parse(json_raw)
+                //Make sure to process initial_latex attribute
+                json_obj.initial_latex = processMqIni(json_obj.initial_latex || '')
                 createQuillFromObject($el, gid, json_obj);
             } catch(ex) {
                 console.error("Invalid or corrupted MQ definition:: ", qtype)
+                console.error(ex)
             }
         }
     });

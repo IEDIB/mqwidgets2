@@ -22,70 +22,79 @@
             max-width: 500px;
         }
     </style>
-    <title>MQwidgets2 test case</title>
+    <title>MQwidgets2 examples</title>
 </head>
 
 <body>
+    <h1>MQwidgets2 examples</h1>
 
+    <h4>Intervals</h4>
 
-    <p>Calcula:</p>
-
-    <div class="pw-mq-group" data-lang="ca">
-        <p>Intervals</p>
-        <p data-mq="simple" data-mq-palettes="intervals,general"
-            data-mq-ans="Interval.open(-3,3)">a) Tots els nombres majors que -3 i menors que 3</p>
-        <p data-mq="simple" data-mq-palettes="intervals,general"
-            data-mq-ans="Interval(-3,3)">b) Tots els nombres majors que -3 i menors que 3 inclosos</p>
-        <p data-mq="simple" data-mq-palettes="intervals,general" 
-            data-mq-ans="Interval.open(-3,oo)">c) Tots els nombres majors que -3 </p>
-        <p data-mq="simple" data-mq-palettes="intervals,general" 
-            data-mq-ans="Interval.Ropen(-3,oo)">d) Tots els nombres majors que -3 inclòs </p>
-        <p data-mq="simple" data-mq-palettes="intervals,general"
-            data-mq-ans="Interval.open(-oo, 3)">e) Tots els nombres menors que 3 </p>
+    <ol start="1">
+        <li>Write the following numbers sets as intervals:</li>
+    </ol>
+    <div class="pw-mq-group" data-lang="en">
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJyaWdodF9hbnN3ZXIiOiIiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOltdLCJwYWxldHRlcyI6WyJpbnRlcnZhbHMiLCJnZW5lcmFsIl0sImFucyI6IkludGVydmFsLm9wZW4oLTMsMykiLCJhbnNUeXBlIjoiYW5zIiwic3ltYm9scyI6W119">
+            a) All the numbers greater than -3 and less than 3</p>
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJyaWdodF9hbnN3ZXIiOiIiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOltdLCJwYWxldHRlcyI6WyJpbnRlcnZhbHMiLCJnZW5lcmFsIl0sImFucyI6IkludGVydmFsKC0zLDMpIiwiYW5zVHlwZSI6ImFucyIsInN5bWJvbHMiOltdfQ==">
+            b) All the numbers greater than -3 and less than 3, both are included</p>
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJyaWdodF9hbnN3ZXIiOiIiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOltdLCJwYWxldHRlcyI6WyJpbnRlcnZhbHMiLCJnZW5lcmFsIl0sImFucyI6IkludGVydmFsLm9wZW4oLTMsb28pIiwiYW5zVHlwZSI6ImFucyIsInN5bWJvbHMiOltdfQ==">
+            c) All numbers greater than -3 </p>
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJyaWdodF9hbnN3ZXIiOiIiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOltdLCJwYWxldHRlcyI6WyJpbnRlcnZhbHMiLCJnZW5lcmFsIl0sImFucyI6IkludGVydmFsLlJvcGVuKC0zLG9vKSIsImFuc1R5cGUiOiJhbnMiLCJzeW1ib2xzIjpbXX0=">
+            d) All the numbers greater or equal to -3</p>
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJyaWdodF9hbnN3ZXIiOiIiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOltdLCJwYWxldHRlcyI6WyJpbnRlcnZhbHMiLCJnZW5lcmFsIl0sImFucyI6IkludGVydmFsLm9wZW4oLW9vLCAzKSIsImFuc1R5cGUiOiJhbnMiLCJzeW1ib2xzIjpbXX0=">
+            e) All the numbers smaller than 3</p>
     </div>
 
 
-    <div class="pw-mq-group">
-        <p>Aritmètica</p>
-        <p
-            data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJzeW1ib2xzIjpbImE6PTEiLCJiOj0xIl0sImFucyI6ImErYiIsImluaSI6IiIsInJ1bGVzIjpbXX0=">
-            a) \(1+1\)=</p>
-        <p data-mq-ans="9*5" data-mq="basic">b) \(9\cdot 5\)=</p>
-        <p data-mq-ans="sqrt(49)" data-mq="basic">c) \(\sqrt{49}\)=</p>
-        <p data-mq-ans="[4,2]" data-mq="cloze" data-mq-ini="\sqrt[?]{?}">c) \(\sqrt{\sqrt{2} }\)=</p>
-
+    <h4>Arithmetics</h4>
+    <ol start="2">
+        <li>Do the following calculations:</li>
+    </ol>
+    <div class="pw-mq-group" data-lang="en">
+        <p data-mq="eyJlZGl0b3IiOiJiYXNpYyIsImluaXRpYWxfbGF0ZXgiOiIiLCJydWxlcyI6W10sImFucyI6IjkqNS0yIiwiYW5zVHlwZSI6ImFucyJ9">a) \(9\cdot 5-2\)=</p>
+        <p data-mq="eyJlZGl0b3IiOiJiYXNpYyIsImluaXRpYWxfbGF0ZXgiOiIiLCJydWxlcyI6W10sImFucyI6InNxcnQoNDkpIiwiYW5zVHlwZSI6ImFucyJ9">b) \(\sqrt{49}\)=</p>
+        <p data-mq="eyJlZGl0b3IiOiJjbG96ZSIsImluaXRpYWxfbGF0ZXgiOiJcXHNxcnRbP117P30iLCJydWxlcyI6W10sImFucyI6WyI0IiwiMiJdLCJhbnNUeXBlIjoiYW5zIn0=">c) \(\sqrt{\sqrt{2} }\)=</p>
     </div>
 
-    <div class="pw-mq-group">
-        <p data-mq="mchoice*" data-mq-ans="3" data-mq-symbols="Opció 1;Opció 2;Opció 3;Opció 4">La correcta és la 4 </p>
-
-        <p data-mq="mchoice" data-mq-ans="3" data-mq-symbols="Opció 1;Opció 2;Opció 3;Opció 4">La correcta és la 4 </p>
+    <ol start="3">
+        <li>Answer these multiple choice questions:</li>
+    </ol>
+    <div class="pw-mq-group" data-lang="en">
+        <p data-mq="eyJlZGl0b3IiOiJtY2hvaWNlKiIsImluaXRpYWxfbGF0ZXgiOiIiLCJhbnMiOiIxIiwiYW5zVHlwZSI6ImFucyIsInN5bWJvbHMiOlsiT3B0aW9uIDEiLCJPcHRpb24gMiIsIk9wdGlvbiAzIiwiT3B0aW9uIDQiXX0=">a) The right answer is the 2<br></p>
+        <p data-mq="eyJlZGl0b3IiOiJtY2hvaWNlIiwiaW5pdGlhbF9sYXRleCI6IiIsImFucyI6IjMiLCJhbnNUeXBlIjoiYW5zIiwic3ltYm9scyI6WyJPcHRpb24gMSIsIk9wdGlvbiAyIiwiT3B0aW9uIDMiLCJPcHRpb24gNCJdfQ==">b) The right answer is the 4 </p>
     </div>
 
-    <div class="pw-mq-group">
-        <p>Àlgebra</p>
-        <p data-mq-ans="A**2" data-mq-symbols="A:=Matrix([[1,0,1],[0,0,1],[1,1,0]])" data-mq="simple"
-            data-mq-ini="M[3x3]">
-            a) \(\left(\begin{matrix} 1 & 0 & 1\\ 0 & 0 & 1 \\1 & 1 & 0\end{matrix}\right)^2\)=</p>
-        <p data-mq-ans="A.T*A" data-mq-symbols="A:=Matrix([[1,0,1],[0,0,1],[1,1,0]])" data-mq="simple"
-            data-mq-ini="M[3x3]">
-            b) \(A=\left(\begin{matrix} 1 & 0 & 1\\ 0 & 0 & 1 \\1 & 1 & 0\end{matrix}\right);\quad A^t\cdot A\)=</p>
+    <h4>Àlgebra</h4>
+    <ol start="4">
+        <li>Do these exercices about matrix algebra:</li>
+    </ol>
+    <div class="pw-mq-group" data-lang="en">
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJpbml0aWFsX2xhdGV4IjoiTVszeDNdIiwicnVsZXMiOltdLCJhbnMiOiJBKioyIiwiYW5zVHlwZSI6ImFucyIsInN5bWJvbHMiOlsiQTo9TWF0cml4KFtbMSwwLDFdLFswLDAsMV0sWzEsMSwwXV0pIl19">a) \(\left(\begin{matrix} 1 &amp; 0 &amp; 1\\ 0 &amp; 0 &amp; 1 \\1 &amp; 1 &amp; 0\end{matrix}\right)^2\)=</p>
+        <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJpbml0aWFsX2xhdGV4IjoiTVszeDNdIiwicnVsZXMiOltdLCJhbnMiOiJBLlQqQSIsImFuc1R5cGUiOiJhbnMiLCJzeW1ib2xzIjpbIkE6PU1hdHJpeChbWzEsMCwxXSxbMCwwLDFdLFsxLDEsMF1dKSJdfQ==">b) \(A=\left(\begin{matrix} 1 &amp; 0 &amp; 1\\ 0 &amp; 0 &amp; 1 \\1 &amp; 1 &amp; 0\end{matrix}\right);\quad A^t\cdot A\)=</p>
     </div>
 
 
-    <div class="pw-mq-group">
-        <p>Polinomis</p>
-        <p data-mq-ans="factor(x**2+x-2)" data-mq="simple" data-mq-rules='{"factor":true}'>
-            a) Factoritza \(P(x)=x^2+x-2\) </p>
-        <p data-mq-ans="expand((x+4)**2)" data-mq="panel" data-mq-palettes="all" data-mq-rules='{"factor":false}'>
-            b) Expandeix \((x+4)^2\) </p>
+    <ol start="5">
+        <li>Do these exercices about polynomials:</li>
+    </ol>
+    <div class="pw-mq-group" data-lang="en">
+       <p data-mq="eyJlZGl0b3IiOiJzaW1wbGUiLCJpbml0aWFsX2xhdGV4IjoiIiwicnVsZXMiOnsiZmFjdG9yIjp0cnVlfSwiYW5zIjoiZmFjdG9yKHgqKjIreC0yKSIsImFuc1R5cGUiOiJhbnMifQ=="> a) Factoritze \(P(x)=x^2+x-2\) </p>
+       <p data-mq="eyJlZGl0b3IiOiJwYW5lbCIsImluaXRpYWxfbGF0ZXgiOiIiLCJydWxlcyI6eyJmYWN0b3IiOmZhbHNlfSwicGFsZXR0ZXMiOlsiYWxsIl0sImFucyI6ImV4cGFuZCgoeCs0KSoqMikiLCJhbnNUeXBlIjoiYW5zIn0=">b) Expand \((x+4)^2\) </p>
     </div>
-
-    <div data-pygen-formulation="Calcula" data-pygen-mq="simple"
-        data-pygen="arithmetics.complex.complex_tasks.complex_binomic_operations[r=5,complexity=1]"></div>
-
-
+  
     <script src="../dist/mqwidgets2.js"></script>
+    <script>
+        $('div.pw-mq-group').each(function(i, e){
+            var $el = $(e);
+            $el.css('position', 'relative');
+            var anchor = $('<a href="#" target="_blank">Edit me</a>');
+            anchor.css({'position': 'absolute', 'bottom':0, 'right':0});
+            var href = 'https://iedib.github.io/mqwidgets2-editor/dist/?doc='+btoa($el.html())
+            anchor.prop('href', href);
+            $el.append(anchor);
+        })
+    </script>
 </body>
-
+ 
 </html>
