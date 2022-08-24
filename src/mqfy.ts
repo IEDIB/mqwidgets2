@@ -34,8 +34,8 @@ function parseContext($eg: JQuery<HTMLElement>, gid: string): void {
 
     const ctx: any = {};  // Hold the context of this group
 
-    if($eg.prop("data-lang")) {
-        ctx.lang = $eg.prop("data-lang")
+    if($eg.attr("data-lang")) {
+        ctx.lang = $eg.attr("data-lang")
     }
     //TODO with other properties of a group
 

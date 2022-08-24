@@ -82,17 +82,17 @@ function getBrowserLang(): string {
     return lang.toLowerCase().split("_")[0]
 }
  
-const systemLang = getBrowserLang()
-console.error("SystemLang: ", systemLang)
+const systemLang = getBrowserLang() 
 
 export function I18n(key: string, gid?: string): string {
-    let lang = systemLang
-    if(gid && sharedContext['gid'] && sharedContext['gid'].lang) {
-        lang = sharedContext['gid'].lang
-    } 
+    let lang = systemLang 
+    if(gid && sharedContext[gid] && sharedContext[gid].lang) {
+        lang = sharedContext[gid].lang
+    }  
     let langPack = TRANSLATIONS[lang]
     if (!langPack) {
         //Unknown language - use fallback english
+        console.error("Cannot find translations in ", lang, ". Using fallback [en]")
         langPack = TRANSLATIONS['en']
     }
     return langPack[key] || key || ''
