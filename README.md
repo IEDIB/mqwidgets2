@@ -2,7 +2,7 @@
 
 Mathematical activity widgets based on [Mathquill](http://mathquill.com/) textareas.
 
-See a demonstration at [https://piworld.es/iedib/mqwidgets](https://piworld.es/iedib/mqwidgets)
+You can find some examples at [https://iedib.github.io/mqwidgets2/test](https://iedib.github.io/mqwidgets2/test?v=1.0)
 
 ## Basic usage
 
@@ -26,4 +26,4 @@ Please note that in Moodle, at least one formula \(..\) has to be in the documen
 <script src="https://piworld.es/iedib/matheditor/mqwidgets2.js"></script>
 ```
 
-The definition of a ```mq``` widget is given through the data atribute ```data-mq``` which is encoded as a base64 string. The easiest way to create a new widget is by using the online editor at [https://piworld.es/iedib/mqwidgets](https://piworld.es/iedib/mqwidgets).
+The definition of a ```mq``` widget is given through the data atribute ```data-mq``` which is encoded as a base64 string. The easiest way to create a new widget is by using the online editor at [https://iedib.github.io/mqwidgets2-editor/dist](https://iedib.github.io/mqwidgets2-editor/dist).
