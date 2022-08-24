@@ -2,7 +2,7 @@
 
 Mathematical activity widgets based on [Mathquill](http://mathquill.com/) textareas.
 
-You can find some examples at [https://iedib.github.io/mqwidgets2/test](https://iedib.github.io/mqwidgets2/test?v=1.0)
+You can find some examples at [https://iedib.github.io/mqwidgets2/docs](https://iedib.github.io/mqwidgets2/docs?v=1.0)
 
 ## Basic usage
 
