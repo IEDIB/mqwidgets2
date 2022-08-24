@@ -2,5 +2,8 @@
 .git
 node_modules
 package_lock.json
-trash
+trash/
 trash/*
+test/remote/
+test/testgen.html
+dist/mqwidgets2.js.LICENSE.txt
