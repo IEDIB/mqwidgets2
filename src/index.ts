@@ -100,23 +100,34 @@ import { cfg } from './globals'
 import { createLinkSheet, insertScript, urlJoin } from "./utils"; 
 import { findQuillGroups } from './mqfy';
 import { findPyGenerators } from './findPyGenerators';
+import { MQWidgetsConfig } from './types';
 
 applyPolyfills()
 
-window.MQWidgets = window.MQWidgets || {}
-window.MQWidgets.reflow = function() {
-        findQuillGroups();  // Groups of mquills
-        findPyGenerators(); // An interface for dynamic generated questions
-    }
 
-
-const onLoad = function() { 
-    window.MQWidgets.reflow();
-}
+function reflow() {
+    findQuillGroups();  // Groups of mquills
+    findPyGenerators(); // An interface for dynamic generated questions
+} 
 
 // Inject required dependencies on the page
 // On jquery ready
-$(function() {
+let isInitialized = false 
+
+function init(userConfig?: MQWidgetsConfig) {
+    // Prevent multiple initializations
+    if(isInitialized) {
+        reflow()
+        return
+    }
+    if(userConfig) {
+        cfg.setUserConfig(userConfig)
+    } 
     createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
-    insertScript(cfg.MATHQUILL_URL, onLoad);
-});
+    insertScript(cfg.MATHQUILL_URL, reflow);
+    isInitialized = true;
+}
+
+window.MQWidgets = window.MQWidgets || {}
+window.MQWidgets.init = init
+window.MQWidgets.reflow = reflow

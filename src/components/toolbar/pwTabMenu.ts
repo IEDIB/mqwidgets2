@@ -36,7 +36,7 @@ export class PwTabMenu {
             return;
         }
         var self = this;
-        var tab = $('<button style="display:none;" class="btn btn-sm pw-me-btn-tab">' + I18n(name, this.gid) + '</button>');
+        var tab = $('<button style="display:none;" class="btn btn-sm pw-me-btn-tab">' + I18n(name) + '</button>');
         var container = $('<div style="display:none;" class="pw-me-tabcontainer"></div>');
         tab.on('click', function(ev){
             ev.preventDefault();

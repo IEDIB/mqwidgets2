@@ -1,4 +1,4 @@
-import { MQ, PageInfo, QuestionType, SharedContainer, SharedContextContainer, SharedDlgContainer } from "./types";
+import { MQ, MQWidgetsConfig, PageInfo, QuestionType, SharedContainer, SharedContextContainer, SharedDlgContainer } from "./types";
 import { urlJoin } from "./utils";
 
 /**
@@ -109,53 +109,70 @@ const loadPageInfo = function (): PageInfo {
 };
 
 
-let pageInfo = loadPageInfo();
-
-const HAS_IAPACE = window["IB"] && window["IB"].iapace;
-const RIGHT_ICON = 'fas fa-check'; //'far fa-smile'; //
-const WRONG_ICON = 'fas fa-times'; //'far fa-dizzy'; //
-const MAX_ATTEMPTS = 2;  // Maximum number of wrong attempts before showing right answer
-
 // Decide from where to load resources
 window.MQWidgets = window.MQWidgets || {}
 
-const BACKEND_BASEURL = window.MQWidgets.BACKEND_BASEURL || "https://piworld.es/pigen/api/"
+// Default values if not specified at initialization
+ 
 
-const CAS_URL = urlJoin(BACKEND_BASEURL, "compare");
-const PYGEN_URL = urlJoin(BACKEND_BASEURL, "generate");
-const GETANSWER_URL = urlJoin(BACKEND_BASEURL, "getanswer");
-const MQWIDGETS_BASEURL =  window.MQWidgets.MQWIDGETS_BASEURL || "https://iedib.github.io/mqwidgets2/dist/";
-const MATHQUILL_URL =  window.MQWidgets.MATHQUILL_URL || "https://iedib.github.io/mqwidgets2/lib/mathquill.matrix.min.js";
+class Cfg {
+    BACKEND_BASEURL = "https://piworld.es/pigen/api/"
+    MQWIDGETS_BASEURL = "https://iedib.github.io/mqwidgets2/dist/"
+    MATHQUILL_URL = "https://iedib.github.io/mqwidgets2/lib/mathquill.matrix.min.js"
+    pageInfo = loadPageInfo()
+    STATUS = {
+        UNMODIFIED: 100,
+        MODIFIED: 200,
+        CORRECT: 1,
+        WRONG: 0
+    }
+    QTYPES: {[name:string]:QuestionType} = {
+        S: 'simple',
+        B: 'basic',
+        C: 'cloze',
+        P: 'panel',
+        M: 'mchoice',  // multiple choice combo
+        Ms: 'mchoice*' // multiple choice radio, checkbox
+    };
+   
+    HAS_IAPACE: boolean = window["IB"]!=null && (window["IB"].iapace!=null)
+  
+    LANG:string = ''
 
-const QTYPES: {[name:string]:QuestionType} = {
-    S: 'simple',
-    B: 'basic',
-    C: 'cloze',
-    P: 'panel',
-    M: 'mchoice',  // multiple choice combo
-    Ms: 'mchoice*' // multiple choice radio, checkbox
-};
-const STATUS = {
-    UNMODIFIED: 100,
-    MODIFIED: 200,
-    CORRECT: 1,
-    WRONG: 0
-};
+    RIGHT_ICON = 'fas fa-check'; //'far fa-smile'; //   
+    WRONG_ICON = 'fas fa-times'; //'far fa-dizzy'; //
+    MAX_ATTEMPTS = 2;  // Maximum number of wrong attempts before showing right answer
 
-export const cfg = {
-    MQWIDGETS_BASEURL,
-    MATHQUILL_URL,
-    pageInfo,
-    STATUS,
-    QTYPES,
-    GETANSWER_URL,
-    PYGEN_URL,
-    CAS_URL,
-    MAX_ATTEMPTS,
-    HAS_IAPACE,
-    RIGHT_ICON,
-    WRONG_ICON
-} 
+    get CAS_URL(): string {
+       return  urlJoin(this.BACKEND_BASEURL, "compare")
+    }
+
+    get PYGEN_URL(): string {
+        return urlJoin(this.BACKEND_BASEURL, "generate");
+    } 
+
+    get GETANSWER_URL(): string {
+        return urlJoin(this.BACKEND_BASEURL, "getanswer");
+    }
+ 
+    public setUserConfig(uc: MQWidgetsConfig) {
+        if(uc.backendBaseUrl) {
+            this.BACKEND_BASEURL = uc.backendBaseUrl
+        }
+        if(uc.lang) {
+            this.LANG = uc.lang
+        }
+        if(uc.mathquillUrl) {
+            this.MATHQUILL_URL = uc.mathquillUrl
+        }
+        if(uc.mqwidgetsBaseUrl) {
+            this.MQWIDGETS_BASEURL = uc.mqwidgetsBaseUrl
+        }
+    }
+     
+}
+
+export const cfg = new Cfg()
 
 // Lazy load (it might no be loaded yet)
 let MQI: MQ.MathQuill = {} as MQ.MathQuill 

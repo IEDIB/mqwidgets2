@@ -1,4 +1,4 @@
-import { sharedContext } from "./globals";
+import { cfg, sharedContext } from "./globals";
 
 const TRANSLATIONS: any = {
     ca: {
@@ -82,13 +82,10 @@ function getBrowserLang(): string {
     return lang.toLowerCase().split("_")[0]
 }
  
-const systemLang = getBrowserLang() 
+const BROWSER_LANG = getBrowserLang() 
 
-export function I18n(key: string, gid?: string): string {
-    let lang = systemLang 
-    if(gid && sharedContext[gid] && sharedContext[gid].lang) {
-        lang = sharedContext[gid].lang
-    }  
+export function I18n(key: string): string {
+    const lang = cfg.LANG || BROWSER_LANG  
     let langPack = TRANSLATIONS[lang]
     if (!langPack) {
         //Unknown language - use fallback english

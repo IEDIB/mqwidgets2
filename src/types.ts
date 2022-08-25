@@ -122,6 +122,13 @@ export interface MQDefinition {
     anse?: string
 }
 
+export interface MQWidgetsConfig {
+    lang?: string,
+    backendBaseUrl?: string,
+    mqwidgetsBaseUrl?: string,
+    mathquillUrl?: string
+}
+
 /**
  * A generic dictionary type with string keys
  */

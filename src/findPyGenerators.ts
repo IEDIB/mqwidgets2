@@ -61,7 +61,7 @@ export function findPyGenerators () {
             goalChecker = new GoalChecker(category, goalRules);
             if(goalChecker.accomplished()){
                 //Indicator that the goal is already reached
-                topPanel.append($('<span class="pw-goal-reached">'+I18n('goal_reached', gid)+' </span>'));
+                topPanel.append($('<span class="pw-goal-reached">'+I18n('goal_reached')+' </span>'));
             }
         }
  
@@ -115,8 +115,8 @@ export function findPyGenerators () {
 
         // Check this question
         
-        const checkBtn = $('<button class="btn btn-sm btn-primary"><i class="fas fa-check"></i> '+I18n('check', gid)+'</button>') as JQuery<HTMLButtonElement>;
-        const comodiBtn = $('<button class="btn btn-sm btn-warning" style="display:none;"><i class="far fa-life-ring"></i> '+I18n('wildcard', gid)+' 50%</button>') as JQuery<HTMLButtonElement>;
+        const checkBtn = $('<button class="btn btn-sm btn-primary"><i class="fas fa-check"></i> '+I18n('check')+'</button>') as JQuery<HTMLButtonElement>;
+        const comodiBtn = $('<button class="btn btn-sm btn-warning" style="display:none;"><i class="far fa-life-ring"></i> '+I18n('wildcard')+' 50%</button>') as JQuery<HTMLButtonElement>;
        
         let currentDatos: any = null;
         let currentEditor: any = null;
@@ -221,7 +221,7 @@ export function findPyGenerators () {
                         //TODO lunch confetti if succeded
                         if(goalChecker && goalChecker.reached()) {
                             if(topPanel.find(".pw-goal-reached").length==0) {
-                                topPanel.append($('<span class="pw-goal-reached">'+I18n('goal_reached', gid)+' </span>'));
+                                topPanel.append($('<span class="pw-goal-reached">'+I18n('goal_reached')+' </span>'));
                             }
                             //celebration?
                             if($eg.attr("data-pygen-celebration")=='confetti' && window.Confetti) {
@@ -249,7 +249,7 @@ export function findPyGenerators () {
         };
 
          // Reveal answer to this question
-         const showmeBtn = $('<button class="btn btn-sm btn-outline-info" title="Mostra la resposta"><i class="fas fa-question-circle"></i> '+I18n('answer', gid)+'</button>') as JQuery<HTMLButtonElement>;
+         const showmeBtn = $('<button class="btn btn-sm btn-outline-info" title="Mostra la resposta"><i class="fas fa-question-circle"></i> '+I18n('answer')+'</button>') as JQuery<HTMLButtonElement>;
          showmeBtn.on('click', function(ev){
              ev.preventDefault();
              if( !currentEditor ) {
@@ -267,7 +267,7 @@ export function findPyGenerators () {
          });
 
         // Skip this question
-        const nextButton = $('<button class="btn btn-sm btn-outline-primary" title="Genera una nova pregunta"><i class="fas fa-arrow-circle-right"></i> '+ I18n('next', gid)+'</button>');
+        const nextButton = $('<button class="btn btn-sm btn-outline-primary" title="Genera una nova pregunta"><i class="fas fa-arrow-circle-right"></i> '+ I18n('next')+'</button>');
         nextButton.on('click', function(ev){
             ev.preventDefault();  
             // Remove existing widgets from this gid

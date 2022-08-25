@@ -111,11 +111,11 @@ export class EditorCloze extends EditorBase implements EditorTAD {
 
         // Must create a global dialog
         if (!sharedDlg["showAnswerDlg"]) {
-            const dlg = new PwDialog(I18n('right_answer', this.gid), 400, 250);
+            const dlg = new PwDialog(I18n('right_answer'), 400, 250);
             sharedDlg["showAnswerDlg"] = dlg;
             const answerHolder = $('<div class="pw-answer-holder"></div>');
             dlg.append(answerHolder);
-            const closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">'+I18n('close', this.gid)+'</button>');
+            const closeBtn = $('<button class="btn btn-sm btn-primary" style="margin-left: 15px;">'+I18n('close')+'</button>');
             dlg.append(closeBtn);
             closeBtn.on('click', function (ev) {
                 ev.preventDefault();

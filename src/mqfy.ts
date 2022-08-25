@@ -33,10 +33,7 @@ const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) {
 function parseContext($eg: JQuery<HTMLElement>, gid: string): void {
 
     const ctx: any = {};  // Hold the context of this group
-
-    if($eg.attr("data-lang")) {
-        ctx.lang = $eg.attr("data-lang")
-    }
+    
     //TODO with other properties of a group
 
     sharedContext[gid] = ctx;
