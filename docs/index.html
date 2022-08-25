@@ -86,6 +86,8 @@
     <script src="../dist/mqwidgets2.js"></script>
     <script>
         MQWidgets.init({lang: 'en'});
+        /*
+        // Does not work for long query params. Must devise another method.
         $('div.pw-mq-group').each(function(i, e){
             var $el = $(e);
             $el.css('position', 'relative');
@@ -95,6 +97,7 @@
             anchor.prop('href', href);
             $el.append(anchor);
         })
+        */
     </script>
 </body>
  
