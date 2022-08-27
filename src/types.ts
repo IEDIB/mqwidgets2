@@ -124,9 +124,9 @@ export interface MQDefinition {
 
 export interface MQWidgetsConfig {
     lang?: string,
-    backendBaseUrl?: string,
-    mqwidgetsBaseUrl?: string,
-    mathquillUrl?: string
+    engine: string, 
+    mqwBaseurl?: string,
+    widgets?: {[name:string]: string}
 }
 
 /**

@@ -115,10 +115,10 @@ window.MQWidgets = window.MQWidgets || {}
 // Default values if not specified at initialization
  
 
+// https://piworld.es/mqwdemo/api/
 class Cfg {
-    BACKEND_BASEURL = "https://piworld.es/pigen/api/"
+    BACKEND_BASEURL = ""
     MQWIDGETS_BASEURL = "https://iedib.github.io/mqwidgets2/dist/"
-    MATHQUILL_URL = "https://iedib.github.io/mqwidgets2/lib/mathquill.matrix.min.js"
     pageInfo = loadPageInfo()
     STATUS = {
         UNMODIFIED: 100,
@@ -154,19 +154,20 @@ class Cfg {
     get GETANSWER_URL(): string {
         return urlJoin(this.BACKEND_BASEURL, "getanswer");
     }
+
+    get MATHQUILL_URL(): string {
+        return urlJoin(this.MQWIDGETS_BASEURL, "/lib/mathquill.matrix.min.js")
+    }
  
     public setUserConfig(uc: MQWidgetsConfig) {
-        if(uc.backendBaseUrl) {
-            this.BACKEND_BASEURL = uc.backendBaseUrl
+        if(uc.engine) {
+            this.BACKEND_BASEURL = uc.engine
         }
         if(uc.lang) {
             this.LANG = uc.lang
-        }
-        if(uc.mathquillUrl) {
-            this.MATHQUILL_URL = uc.mathquillUrl
-        }
-        if(uc.mqwidgetsBaseUrl) {
-            this.MQWIDGETS_BASEURL = uc.mqwidgetsBaseUrl
+        } 
+        if(uc.mqwBaseurl) {
+            this.MQWIDGETS_BASEURL = uc.mqwBaseurl
         }
     }
      

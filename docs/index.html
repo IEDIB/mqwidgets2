@@ -85,7 +85,10 @@
   
     <script src="../dist/mqwidgets2.js"></script>
     <script>
-        MQWidgets.init({lang: 'en'});
+        MQWidgets.init({
+            lang: 'en',
+            engine: 'https://piworld.es/mqwdemo/api/'
+        });
         /*
         // Does not work for long query params. Must devise another method.
         $('div.pw-mq-group').each(function(i, e){

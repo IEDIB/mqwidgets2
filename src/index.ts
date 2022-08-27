@@ -105,8 +105,8 @@ import { MQWidgetsConfig } from './types';
 applyPolyfills()
 
 
-function reflow() {
-    findQuillGroups();  // Groups of mquills
+function reflow(widgets?: {[name: string]: string}) {
+    findQuillGroups(widgets);  // Groups of mquills
     findPyGenerators(); // An interface for dynamic generated questions
 } 
 
@@ -114,17 +114,20 @@ function reflow() {
 // On jquery ready
 let isInitialized = false 
 
-function init(userConfig?: MQWidgetsConfig) {
+function init(userConfig: MQWidgetsConfig) {
     // Prevent multiple initializations
     if(isInitialized) {
         reflow()
         return
     }
-    if(userConfig) {
-        cfg.setUserConfig(userConfig)
-    } 
+    if(!userConfig.engine) {
+        console.error("The engine option in the init method is required.");
+        return
+    }
+    cfg.setUserConfig(userConfig)
+     
     createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
-    insertScript(cfg.MATHQUILL_URL, reflow);
+    insertScript(cfg.MATHQUILL_URL, () => {reflow(userConfig?.widgets)});
     isInitialized = true;
 }
 

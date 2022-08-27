@@ -4,7 +4,31 @@ import { cfg, shared, sharedContext } from "./globals";
 import { createQuillFromDataAttr, processMqIni } from "./mq-parsing";
 import { hasValue, items } from "./utils";
 
-const findQuills = function ($eg: JQuery<HTMLElement>, gid: string) { 
+const findQuills = function ($eg: JQuery<HTMLElement>, gid: string, widgets?: {[name:string]: string}) { 
+    // Precedence of the widgets defined throught the init method
+    if(widgets) {
+        items(widgets, function(id: string, b64: string) {
+            //check if 'id' is found
+            const $el = $('#'+id) as JQuery<HTMLDivElement>;
+            if($el.length) {
+                // ignore the mq attribute that might include in sucsessive parsing
+                $el.removeAttr("data-mq");
+                try {
+                    const json_raw = atob(b64);
+                    const json_obj = JSON.parse(json_raw);
+                    //Make sure to process initial_latex attribute
+                    json_obj.initial_latex = processMqIni(json_obj.initial_latex || '');
+                    createQuillFromObject($el, gid, json_obj);
+                } catch(ex) {
+                    console.error("Invalid or corrupted MQ definition:: ", b64);
+                    console.error(ex);
+                }
+            } else {
+                console.error("The element with id="+ id+ " does not exist.");
+            }
+        })
+    }
+    
     $eg.find("[data-mq]").each(function (i, el) {
         const $el = $(el) as JQuery<HTMLDivElement>;
         const qtype = $(el).attr("data-mq") || 'simple';  //s=simple, b=basic, p=panel, c=cloze (requires data-mq-ini)
@@ -40,7 +64,7 @@ function parseContext($eg: JQuery<HTMLElement>, gid: string): void {
 
 }
 
-export function findQuillGroups(parent?: JQuery<HTMLDivElement>) {
+export function findQuillGroups(widgets?: {[name: string]: string}, parent?: JQuery<HTMLDivElement>) {
     parent = parent || $('body');
     parent.find(".pw-mq-group").each(function (j, eg) {
         const $eg = $(eg);
@@ -56,7 +80,7 @@ export function findQuillGroups(parent?: JQuery<HTMLDivElement>) {
         } 
         shared[gid] = {};  //Hold all the editors
         parseContext($eg, gid); 
-        findQuills($eg, gid);
+        findQuills($eg, gid, widgets);
         const check_btn = createSubmitButtonForGroup(gid);
         $eg.append(check_btn);
 
