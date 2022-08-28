@@ -20,6 +20,7 @@ export function processMqIni(ini?: string) {
 
 export function createQuillFromDataAttr($el: JQuery<HTMLDivElement>, gid: string) {
     const qtype = $el.attr("data-mq") || 'simple';
+    const engine = $el.attr("data-mq-engine");
     let ans: any = $el.attr("data-mq-ans");
     // If not ans then it cannot be checked, so.
     let ansType = 'ans';
@@ -78,6 +79,7 @@ export function createQuillFromDataAttr($el: JQuery<HTMLDivElement>, gid: string
     }
 
     const obj: MQDefinition = {
+        engine: engine,
         editor: qtype,
         symbols: symbols,
         right_answer: ra,

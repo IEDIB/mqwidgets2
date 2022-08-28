@@ -6,6 +6,7 @@ import tbConfig from "./toolbar/toolbar-config"
 import { EditorTAD } from "./editorTAD";
 import { EditorBase } from "./editorBase";
 import { MQDefinition, QuestionType } from "../types";
+import { engineCAS } from "../engines/engineCAS";
 
 // Editor panel
 export class EditorPanel extends EditorBase implements EditorTAD {
@@ -186,27 +187,24 @@ export class EditorPanel extends EditorBase implements EditorTAD {
         }
         if (!this.def.right_answer) { 
             // Try to ask the server to generate the answer
-            $.ajax({
-                type: "POST",
-                url: cfg.GETANSWER_URL,
-                data: JSON.stringify(this.def),
-                dataType: 'json',
-                success: function (datos) {
-                    if (datos.right_answer) {
-                        self.check_el?.css("display", "none");
-                        self.def.right_answer = datos.right_answer;
-                        self.feedback_el.css("display", "");
-                        self.feedback_el.html(atob(self.def.right_answer) + '<p><br></p>');
-                        reflowLatex();
-                        self.isAnswerShown = true; 
-                        self.palettes.setEnabled(false);
-                        self.spanMathInput.css("pointer-events", "none");
-                        self.panel.css("cursor", "not-allowed");
-                    } else if (datos.msg) {
-                        console.error(datos.msg);
-                    }
+            engineCAS.getAnswer(this.def).then((datos)=>{
+                if (datos.right_answer) {
+                    self.check_el?.css("display", "none");
+                    self.def.right_answer = datos.right_answer;
+                    self.feedback_el.css("display", "");
+                    self.feedback_el.html(atob(self.def.right_answer) + '<p><br></p>');
+                    reflowLatex();
+                    self.isAnswerShown = true; 
+                    self.palettes.setEnabled(false);
+                    self.spanMathInput.css("pointer-events", "none");
+                    self.panel.css("cursor", "not-allowed");
+                } else if (datos.msg) {
+                    console.error(datos.msg);
                 }
-            });
+            }, (errors)=>{
+                console.error(errors)
+            })
+            
         } else {
             self.check_el?.css("display", "none");
             this.feedback_el.css("display", "");

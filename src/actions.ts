@@ -2,6 +2,7 @@ import { has_empty_answers } from "./checking";
 import { EditorTAD } from "./components/editorTAD";
 import { cfg, shared } from "./globals";
 import { I18n } from "./I18n";
+import { engineCAS } from "./engines/engineCAS";
 import { copyPropsFromTo, isNumeric, MD5 } from "./utils";
 
 let LAST_AJAX = new Date().getTime()
@@ -36,7 +37,7 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
              
             if(ual.length === 0 || has_empty_answers(ual)) {
                 // contains empty answers
-                editor.checkMsg(-1, 'Falten respostes');
+                editor.checkMsg(-1, I18n('ans_missing'));
                 console.error('Editor contains empty answers');
                 continue;
             }
@@ -114,26 +115,20 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
                     }
                     postObj.hash = editor.getHash();
                 }
-                //TODO: Do something with promises
-                $.ajax({
-                    type: "POST",
-                    url: cfg.CAS_URL,
-                    data: JSON.stringify(postObj),
-                    dataType: 'json',
-                    success: function (datos) { 
-                        console.log("success", datos);
-                        var editor = groupContainer[datos.qid]; 
-                        if(datos.correct == 0) {
-                            editor.increment_wrong();
-                        }
-                        editor.checkMsg(datos.correct, datos.msg); 
-                        var score10 = datos.correct? (editor.isComodiUsed()? 5:10): 0;
-                        extraActions && extraActions(score10);
-                    },
-                    error: function (datos) {
-                        console.log("error", datos);
+                //Decide which engine to use based on the payload
+                engineCAS.compare(postObj).then((datos: any) => {
+                    console.log("success", datos);
+                    var editor = groupContainer[datos.qid]; 
+                    if(datos.correct == 0) {
+                        editor.increment_wrong();
                     }
-                });
+                    editor.checkMsg(datos.correct, datos.msg); 
+                    var score10 = datos.correct? (editor.isComodiUsed()? 5:10): 0;
+                    extraActions && extraActions(score10);
+                }, (errors: any) => {
+                    console.error("Error", errors);
+                })
+
             }
         } // end loop
  

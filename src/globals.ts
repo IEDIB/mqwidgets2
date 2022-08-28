@@ -117,6 +117,8 @@ window.MQWidgets = window.MQWidgets || {}
 
 // https://piworld.es/mqwdemo/api/
 class Cfg {
+    DEFAULT_ENGINE = "sympy"
+    NERDAMER_URL = "https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"
     BACKEND_BASEURL = ""
     MQWIDGETS_BASEURL = "https://iedib.github.io/mqwidgets2/dist/"
     pageInfo = loadPageInfo()
@@ -160,8 +162,12 @@ class Cfg {
     }
  
     public setUserConfig(uc: MQWidgetsConfig) {
-        if(uc.engine) {
-            this.BACKEND_BASEURL = uc.engine
+        if(uc.engines[0]=='nerdamer') {
+            this.DEFAULT_ENGINE = 'nerdamer'
+        }
+        const remotes = (uc.engines as []).filter((e: string) => e.trim().startsWith("http"))
+        if(remotes.length) {
+            this.BACKEND_BASEURL = remotes[0]
         }
         if(uc.lang) {
             this.LANG = uc.lang
@@ -169,6 +175,10 @@ class Cfg {
         if(uc.mqwBaseurl) {
             this.MQWIDGETS_BASEURL = uc.mqwBaseurl
         }
+    }
+
+    public isNerdamer(): boolean {
+        return window.nerdamer != null
     }
      
 }

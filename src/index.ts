@@ -117,18 +117,31 @@ let isInitialized = false
 function init(userConfig: MQWidgetsConfig) {
     // Prevent multiple initializations
     if(isInitialized) {
-        reflow()
+        reflow(userConfig.widgets)
         return
     }
-    if(!userConfig.engine) {
-        console.error("The engine option in the init method is required.");
+    if(!userConfig.engines) {
+        console.error("The engines option in the init method is required.");
         return
+    } if(!Array.isArray(userConfig.engines)) {
+        userConfig.engines = [userConfig.engines]
+      
     }
     cfg.setUserConfig(userConfig)
      
     createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
-    insertScript(cfg.MATHQUILL_URL, () => {reflow(userConfig?.widgets)});
-    isInitialized = true;
+    const dependencies = [insertScript(cfg.MATHQUILL_URL)]
+    if(userConfig.engines.indexOf('nerdamer')>=0) {
+        dependencies.push(insertScript(cfg.NERDAMER_URL))
+    }
+    Promise.all(dependencies).then(() => {
+        reflow(userConfig?.widgets)
+        isInitialized = true;
+    },
+    () => {
+        console.error("Unable to load the required dependencies")
+    });
+    
 }
 
 window.MQWidgets = window.MQWidgets || {}

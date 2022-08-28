@@ -1,3 +1,4 @@
+import { engineCAS } from "../engines/engineCAS";
 import { cfg, MathField, shared, sharedDlg } from "../globals";
 import { I18n } from "../I18n";
 import { MQ, MQDefinition, QuestionType } from "../types";
@@ -174,20 +175,16 @@ export class EditorInput extends EditorBase implements EditorTAD {
             });
             if (!this.def.right_answer) {
                 // Must ask the server to generate a right_answer for us by sending the def object
-                $.ajax({
-                    type: "POST",
-                    url: cfg.GETANSWER_URL,
-                    data: JSON.stringify(this.def),
-                    dataType: 'json',
-                    success: function (datos) {
-                        if (datos.right_answer && self.def) {
-                            self.def.right_answer = datos.right_answer;
-                            self.quill_el_container.append(rescueBtn);
-                        } else if (datos.msg) {
-                            console.error(datos.msg);
-                        }
+                engineCAS.getAnswer(this.def).then( (datos) => {
+                    if (datos.right_answer && self.def) {
+                        self.def.right_answer = datos.right_answer;
+                        self.quill_el_container.append(rescueBtn);
+                    } else if (datos.msg) {
+                        console.error(datos.msg);
                     }
-                });
+                }, (errors) => {
+                    console.error(errors);
+                })
             } else {
                 this.quill_el_container.append(rescueBtn);
             }

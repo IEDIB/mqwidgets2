@@ -30,7 +30,8 @@ MQWidgets.init({
     lang: 'en',
     widgets: {
         'mqw_kj23kw90': '<Paste mq definition here>'
-    }
+    },
+    engines: ['https://piworld.es/mqwdemo/api/', 'nerdamer']
 })
 </script>
 ```
@@ -46,8 +47,8 @@ In order to process widgets that are dynamically added to the page, the client m
 
 - lang? = 'en' | 'es' | 'ca': The language of the GUI. If this option is not specified, the detected browser language is used with fallback 'en'.
 
-- engine = The URL that gives access to the CAS backend. You can use ```https://piworld.es/mqwdemo/api/``` solely for demo purposes. Please, do not use this backend for production since it limits the number of requests.  
-In the future, this option will also allow to execute a reduced version of the CAS in the browser without the need to setup a backend server.
+- engine[] = The URL that gives access to the CAS backend or the literal 'nerdamer'. You can use ```https://piworld.es/mqwdemo/api/``` solely for demo purposes. Please, do not use this backend for production since it limits the number of requests.  
+In the future, this option will also allow to execute a reduced version of the CAS in the browser without the need to setup a backend server. The first item in the list will be the default engine used.
 
 - mqwBaseurl? = The url of your distribution of the MQWidgets library. By default it is set to ```https://iedib.github.io/mqwidgets2/dist/```, but you are free to host your own copy of the dist folder. Bear in mind, that the Mathquill dependency must be located at ```/lib/mathquill.matrix.min.js``` relative to the *dist* URL.
 

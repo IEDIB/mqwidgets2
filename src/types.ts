@@ -119,12 +119,13 @@ export interface MQDefinition {
     formulation?: string,
     ansType?: string,
     ans?: string,
-    anse?: string
+    anse?: string,
+    engine?: string
 }
 
 export interface MQWidgetsConfig {
     lang?: string,
-    engine: string, 
+    engines: string | string[], 
     mqwBaseurl?: string,
     widgets?: {[name:string]: string}
 }
@@ -141,3 +142,8 @@ export type SharedContainer = {[name: string]: {
 export type SharedDlgContainer = {[name: string]: PwDialog}
 
 export type SharedContextContainer = {[name: string]: any}
+
+export interface EngineCAS {
+    compare(payload: any): Promise<any>
+    getAnswer(payload: any): Promise<any>
+}
