@@ -231,7 +231,7 @@ class NerdamerCAS implements EngineCAS {
                             const delta = ans_obj.subtract(parsed_input)
                             console.log('debug ', ans_obj.text(), parsed_input.text(), delta.text())
                             expr = is_zero_matrix(delta)
-                        } else if(rules['factor'] || rules['expanded']) {
+                        } else if(rules['factor'] || rules['expand']) {
                             //This condition takes into account if expanded or not
                             expr = ans_obj.eq(parsed_input)   
                         } else {

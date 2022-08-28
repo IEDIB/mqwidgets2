@@ -56,3 +56,25 @@ In the future, this option will also allow to execute a reduced version of the C
         'mqw_kj23kw90': '<Paste mq definition here>'
 }  
 It contains a dictionary with the ids of the widgets and their definition in Base64 encoding. 
+
+### CAS engines
+
+The application provides two different CAS engines for symbolic computation. The first is the [Sympy](https://docs.sympy.org/latest/index.html) library in Python which is accessible through the backend URL. The second method is the awesome [Nerdamer](https://nerdamer.com/documentation.html) library that runs in the browser. In any case, the ```right_answer``` field must be writen in the syntax of either method. For instance:
+
+**Sympy**
+
+```
+formulation: 'Compute \(M^t \cdot M\) being \(M=\begin{matrix}1 & 2 \\ 3 & 4\end{matrix}\)',
+symbols: 'M:=Matrix([[1,2],[3,4]])',
+right_answer: 'M.T*M',
+initial_latex: 'M[2x2]'
+```
+
+**Nerdamer**
+
+```
+formulation: 'Compute \(M^t \cdot M\) being \(M=\begin{matrix}1 & 2 \\ 3 & 4\end{matrix}\)',
+symbols: 'M:=matrix([1,2],[3,4])',
+right_answer: 'transpose(M)*M',
+initial_latex: 'M[2x2]'
+```
