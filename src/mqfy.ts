@@ -1,8 +1,19 @@
 import { createSubmitButtonForGroup } from "./actions";
 import { createQuillFromObject } from "./createQuill";
 import { cfg, shared, sharedContext } from "./globals";
-import { createQuillFromDataAttr, processMqIni } from "./mq-parsing";
-import { hasValue, items } from "./utils";
+import { createQuillFromDataAttr, processMqIni } from "./mq-parsing"; 
+import { hasValue, items, zip } from "./utils";
+const keysDef = ["editor",
+                "engine",
+                "formulation",
+                "initial_latex",
+                "ansType",
+                "ans",
+                "anse",
+                "right_answer",
+                "symbols",
+                "rules",
+                "palettes"];
 
 const findQuills = function ($eg: JQuery<HTMLElement>, gid: string, widgets?: {[name:string]: string}) { 
     // Precedence of the widgets defined throught the init method
@@ -42,7 +53,20 @@ const findQuills = function ($eg: JQuery<HTMLElement>, gid: string, widgets?: {[
             // Use the MQ-editor online
             try {
                 const json_raw = atob(qtype);
-                const json_obj = JSON.parse(json_raw)
+                let json_obj: any = {};
+                const parsedDef = JSON.parse(json_raw)
+                // if json_obj is an array, then we should parse it to an object
+                if(Array.isArray(parsedDef)) {
+                    if(parsedDef.length < keysDef.length) {
+                        console.error("The definition does not contain all the fields. Is it corrupted?")
+                    }
+                   zip(keysDef, parsedDef).forEach( (pair) => {
+                        const [key, value] = pair
+                        json_obj[key] = value
+                   })
+                } else {
+                    json_obj = parsedDef
+                }
                 //Make sure to process initial_latex attribute
                 json_obj.initial_latex = processMqIni(json_obj.initial_latex || '')
                 createQuillFromObject($el, gid, json_obj);

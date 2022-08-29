@@ -111,16 +111,16 @@ export interface MQRules {
 
 export interface MQDefinition {
     editor: string,
-    symbols: string[],
-    right_answer: string,
-    initial_latex: string,
-    rules: MQRules,
-    palettes: string[],
+    engine?: string,
     formulation?: string,
+    initial_latex: string,
     ansType?: string,
     ans?: string,
-    anse?: string,
-    engine?: string
+    anse?: string
+    right_answer: string,
+    symbols: string[],
+    rules: MQRules,
+    palettes: string[],
 }
 
 export interface MQWidgetsConfig {
