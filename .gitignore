@@ -4,6 +4,6 @@ node_modules
 package_lock.json
 trash/
 trash/*
-docs/remote/
+docs/local/
 docs/testgen.html
 dist/mqwidgets2.js.LICENSE.txt

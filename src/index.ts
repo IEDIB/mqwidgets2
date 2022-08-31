@@ -94,10 +94,9 @@
  * data-pygen-celebrate="none|confetti"
  *     Say whether to celebrate or not when the goal is reached!
  */
-
 import { applyPolyfills } from './polyfills';
 import { cfg } from './globals'
-import { createLinkSheet, insertScript, urlJoin } from "./utils"; 
+import { insertScript } from "./utils"; 
 import { findQuillGroups } from './mqfy';
 import { findPyGenerators } from './findPyGenerators';
 import { MQWidgetsConfig } from './types';
@@ -129,21 +128,28 @@ function init(userConfig: MQWidgetsConfig) {
     }
     cfg.setUserConfig(userConfig)
      
-    createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
-    const dependencies = [insertScript(cfg.MATHQUILL_URL)]
+    //Bundle all dependencies in this same file (except Nerdamer)
+    //createLinkSheet(urlJoin(cfg.MQWIDGETS_BASEURL, "mqwidgets2.css"));
+    //insertScript(cfg.MATHQUILL_URL)
+    const dependencies = []
     if(userConfig.engines.indexOf('nerdamer')>=0) {
         dependencies.push(insertScript(cfg.NERDAMER_URL))
     }
-    Promise.all(dependencies).then(() => {
+    if(dependencies.length) {
+        Promise.all(dependencies).then(() => {
+            reflow(userConfig?.widgets)
+            isInitialized = true;
+        },
+        () => {
+            console.error("Unable to load the required dependencies")
+        });
+    } else {
         reflow(userConfig?.widgets)
         isInitialized = true;
-    },
-    () => {
-        console.error("Unable to load the required dependencies")
-    });
-    
+    }
 }
 
-window.MQWidgets = window.MQWidgets || {}
-window.MQWidgets.init = init
-window.MQWidgets.reflow = reflow
+export {
+    init,
+    reflow
+}
