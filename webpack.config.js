@@ -81,7 +81,7 @@ module.exports = {
     filename: 'mqwidgets2.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'MQWidgets',
-    libraryTarget: 'umd',
+    libraryTarget: 'global',
     umdNamedDefine: true 
   },
 };
