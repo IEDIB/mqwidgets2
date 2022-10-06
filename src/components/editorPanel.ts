@@ -26,7 +26,7 @@ export class EditorPanel extends EditorBase implements EditorTAD {
         this.wrong_attemps = 0;
         this.standalone = standalone || false;
         this.status = cfg.STATUS.UNMODIFIED;
-        this.panel = $('<div class="pw-me-editorpanel" style="position:relative"></div>') as JQuery<HTMLDivElement>;
+        this.panel = $('<div class="pw-me-editorpanel d-print-none" style="position:relative"></div>') as JQuery<HTMLDivElement>;
         this.parent.append(this.panel);
         this.palettes = new PwTabMenu(this.panel, this.gid);
         

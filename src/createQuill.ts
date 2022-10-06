@@ -48,8 +48,7 @@ export function createQuillFromObject($el: JQuery<HTMLDivElement>, gid: string, 
     }
     const qid = created.get_qid();
     const groupContainer = shared[gid] || {};
-    groupContainer[qid] = created;
-   
+    groupContainer[qid] = created; 
 
     created.setStatus(cfg.STATUS.UNMODIFIED);
     if (obj.initial_latex && qtype != cfg.QTYPES.C) {

@@ -33,7 +33,7 @@ export class EditorMChoiceCheckbox extends EditorBase implements EditorTAD {
         this.status = cfg.STATUS.UNMODIFIED;
         this.parent = parent;
         this.wrong_attemps = 0;
-        this.quill_el_container = $('<div class="pw-me-mchoice"></div>') as JQuery<HTMLDivElement>;
+        this.quill_el_container = $('<div class="pw-me-mchoice d-print-none"></div>') as JQuery<HTMLDivElement>;
         this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>;
         const radios_group = $('<div></div>') as JQuery<HTMLDivElement>;
         const radiosGroupId = "rgid_" + Math.random().toString(32).substring(2);

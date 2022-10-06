@@ -18,7 +18,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
     constructor(parent: JQuery<HTMLDivElement>, gid: string, def: MQDefinition, qtype: QuestionType) {
         super(parent, gid, def, qtype)
         var self = this;
-        this.quill_el_container = $('<div class="pw-me-editorinput"></div>');
+        this.quill_el_container = $('<div class="pw-me-editorinput d-print-none"></div>');
         this.quill_blocker = $('<div></div>')
         var quill_el = $('<span></span>');
         this.quill_blocker.append(quill_el);

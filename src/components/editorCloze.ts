@@ -17,7 +17,7 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         super(parent, gid, def, qtype)
         const self = this; 
         this.dlg_btn_el = null;
-        this.quill_el_container = $('<div class="pw-me-editorinput"></div>') as JQuery<HTMLDivElement>;
+        this.quill_el_container = $('<div class="pw-me-editorinput d-print-none"></div>') as JQuery<HTMLDivElement>;
         const quill_el = $('<span>' + ini + '</span>') as JQuery<HTMLSpanElement>;
         this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>;
         this.parent.append(this.quill_el_container);

@@ -34,7 +34,7 @@ export function findPyGenerators () {
         // Shoud have a top banner for level and message
         // central panel for qüestion and displaying the mathinput
         // bottom panel for control buttons
-        const topPanel = $('<div style="display:flex;flex-direction:row-reverse;align-items:baseline;"></div>') as JQuery<HTMLDivElement>;
+        const topPanel = $('<div style="display:flex;flex-direction:row-reverse;align-items:baseline;" class="d-print-none"></div>') as JQuery<HTMLDivElement>;
         const centralPanel = $("<div></div>") as JQuery<HTMLDivElement>;
         const bottomPanel = $('<div style="display: flex; flex-direction: row; align-content: flex-start;margin:10px 0; flex-wrap: wrap; gap: 5px;margin-bottom:30px;"></div>') as JQuery<HTMLDivElement>; 
         const copyrightPanel = $('<div style="position: absolute;left: 0;right: 0;bottom: 0;margin: 0;background-color: #9fa0ac; display: flex; flex-direction: row; align-content: flex-start; flex-wrap: wrap; gap: 5px;"></div>') as JQuery<HTMLDivElement>;

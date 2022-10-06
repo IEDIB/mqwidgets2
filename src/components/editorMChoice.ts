@@ -27,7 +27,7 @@ export class EditorMChoice extends EditorBase implements EditorTAD {
         this.status = cfg.STATUS.UNMODIFIED;
         this.parent = parent;
         this.wrong_attemps = 0;
-        this.quill_el_container = $('<div class="pw-me-mchoice"></div>') as JQuery<HTMLDivElement>
+        this.quill_el_container = $('<div class="pw-me-mchoice d-print-none"></div>') as JQuery<HTMLDivElement>
         this.check_el = $('<div class="pw-me-check"></div>') as JQuery<HTMLDivElement>
         const btn_group = $('<div class="btn-group"></div>') as JQuery<HTMLDivElement>
         this.btn_action = $('<button type="button" style="background:white;" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+I18n('choose_option')+'</button>') as JQuery<HTMLButtonElement>
