@@ -119,6 +119,9 @@ function init(userConfig: MQWidgetsConfig) {
         reflow(userConfig.widgets)
         return
     }
+    if( userConfig['engine'] && !userConfig.engines) {
+        userConfig.engines = [userConfig['engine'] || ""]
+    }
     if(!userConfig.engines) {
         console.error("The engines option in the init method is required.");
         return

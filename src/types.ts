@@ -125,6 +125,7 @@ export interface MQDefinition {
 
 export interface MQWidgetsConfig {
     lang?: string,
+    engine?: string,
     engines: string | string[], 
     mqwBaseurl?: string,
     widgets?: {[name:string]: string}
