@@ -69,13 +69,13 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         this.status = status;
         let msg2: string = '';
         if (status == 1) {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-check"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-check"></i></span>';
             this.quill_el_container.addClass('pw-me-right');
         } else if (status == 0) {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-times"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-times"></i></span>';
             this.quill_el_container.addClass('pw-me-wrong');
         } else {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-exclamation-triangle"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-exclamation-triangle"></i></span>';
             this.quill_el_container.addClass('pw-me-alert');
         }
         this.check_el.html(msg2);
@@ -106,7 +106,7 @@ export class EditorCloze extends EditorBase implements EditorTAD {
         }
 
         const self = this;
-        //this.showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fas fa-question-circle"></i></button>');
+        //this.showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fa fas fa-question-circle"></i></button>');
         //this.quill_el_container.append(this.showAnswerBtn);
 
         // Must create a global dialog

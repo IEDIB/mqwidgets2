@@ -8,7 +8,7 @@ export class LevelIndicator {
         this.container = $('<div style="display:inline-block;font-size:90%;" data-toggle="tooltip"></div>') as JQuery<HTMLDivElement>;
         this.levelIcons = [];
         for (let i = 0; i < numLevels; i++) {
-            const elem = $('<i class="fas fa-pepper-hot" style="color:lightgray;"></i>') as JQuery<HTMLElement>;
+            const elem = $('<i class="fa fas fa-pepper-hot" style="color:lightgray;"></i>') as JQuery<HTMLElement>;
             this.container.append(elem);
             this.levelIcons.push(elem);
         }

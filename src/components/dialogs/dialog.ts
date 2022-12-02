@@ -21,7 +21,7 @@ export class PwDialog {
         const topBar = $('<div class="pw-me-dlg-header"></div>') as JQuery<HTMLDivElement>;
         this.topBar = topBar;
         const headerTitle = $('<span class="pw-me-dlg-headertitle">' + title + '</span>') as JQuery<HTMLSpanElement>;
-        this.closeBtn = $('<button class="btn btn-sm pw-me-btn-dlgclose" title="Tancar"><i class="fas fa-times"></i></button>') as JQuery<HTMLButtonElement>;
+        this.closeBtn = $('<button class="btn btn-sm pw-me-btn-dlgclose" title="Tancar"><i class="fa fas fa-times"></i></button>') as JQuery<HTMLButtonElement>;
         const self = this;
         this.closeBtn.on("click", function (ev) {
             ev.preventDefault();

@@ -141,8 +141,8 @@ class Cfg {
   
     LANG:string = ''
 
-    RIGHT_ICON = 'fas fa-check'; //'far fa-smile'; //   
-    WRONG_ICON = 'fas fa-times'; //'far fa-dizzy'; //
+    RIGHT_ICON = 'fa fas fa-check'; //'far fa-smile'; //   
+    WRONG_ICON = 'fa fas fa-times'; //'far fa-dizzy'; //
     MAX_ATTEMPTS = 2;  // Maximum number of wrong attempts before showing right answer
 
     get CAS_URL(): string {

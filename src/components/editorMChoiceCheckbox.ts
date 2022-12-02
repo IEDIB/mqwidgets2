@@ -101,13 +101,13 @@ export class EditorMChoiceCheckbox extends EditorBase implements EditorTAD {
         this.status = status;
         let msg2: string = '';
         if (status == 1) {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-check"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-check"></i></span>';
             this.quill_el_container.addClass('pw-me-right');
         } else if (status == 0) {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-times"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-times"></i></span>';
             this.quill_el_container.addClass('pw-me-wrong');
         } else {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-exclamation-triangle"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-exclamation-triangle"></i></span>';
             this.quill_el_container.addClass('pw-me-alert');
         }
         this.check_el.html(msg2);

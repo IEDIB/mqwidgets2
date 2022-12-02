@@ -42,7 +42,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
         });
 
         if (isBtn) {
-            this.dlg_btn_el = $('<button class="btn btn-sm pw-me-btn-openeditor" title="'+I18n('open_editor')+'"><i class="fas fa-square-root-alt"></i></button>');
+            this.dlg_btn_el = $('<button class="btn btn-sm pw-me-btn-openeditor" title="'+I18n('open_editor')+'"><i class="pw-square-root"></i></button>');
             this.quill_el_container.append(this.dlg_btn_el);
             this.dlg_btn_el.on("click", function (ev) {
                 ev.preventDefault();
@@ -101,7 +101,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
             msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="' + cfg.WRONG_ICON + '"></i></span>';
             this.quill_el_container.addClass('pw-me-wrong');
         } else {
-            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fas fa-exclamation-triangle"></i></span>';
+            msg2 = '<span data-toggle="tooltip" title="' + msg + '"><i class="fa fas fa-exclamation-triangle"></i></span>';
             this.quill_el_container.addClass('pw-me-alert');
         }
         this.check_el.html(msg2);
@@ -120,7 +120,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
         }
 
         var self = this;
-        //const showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fas fa-question-circle"></i></button>') as JQuery<HTMLButtonElement>;
+        //const showAnswerBtn = $('<button class="btn btn pw-me-btn-showanswer" data-toggle="tooltip" title="Mostrar la solució"><i class="fa fas fa-question-circle"></i></button>') as JQuery<HTMLButtonElement>;
         //this.quill_el_container.append(showAnswerBtn);
 
         // Must create a global dialog
@@ -168,7 +168,7 @@ export class EditorInput extends EditorBase implements EditorTAD {
             console.log("creating a rescue", this.def);
 
             // create a button to display answer
-            var rescueBtn = $('<button class="btn btn-sm" title="'+I18n('show_answer')+'"><i class="far fa-question-circle"></i></button>');
+            var rescueBtn = $('<button class="btn btn-sm" title="'+I18n('show_answer')+'"><i class="fa far fa-question-circle"></i></button>');
             var self = this;
             rescueBtn.on("click", function (evt) {
                 self.showAnswer();

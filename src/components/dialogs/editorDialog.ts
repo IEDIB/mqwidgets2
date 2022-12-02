@@ -15,7 +15,7 @@ export class EditorDialog extends PwDialog {
     cancelFn?: Function;
 
     constructor() {
-        super('<i style="color:darkred;" class="fas fa-square-root-alt"></i> '+I18n('matheditor'), 500, 320);
+        super('<i style="color:darkred;" class="pw-square-root"></i> '+I18n('matheditor'), 500, 320);
         const self = this;
         const gid = 'gid_'+Math.random().toString(32).substring(2)
         const qtype = cfg.QTYPES.P

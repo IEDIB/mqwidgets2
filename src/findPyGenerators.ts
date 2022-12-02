@@ -115,8 +115,8 @@ export function findPyGenerators () {
 
         // Check this question
         
-        const checkBtn = $('<button class="btn btn-sm btn-primary"><i class="fas fa-check"></i> '+I18n('check')+'</button>') as JQuery<HTMLButtonElement>;
-        const comodiBtn = $('<button class="btn btn-sm btn-warning" style="display:none;"><i class="far fa-life-ring"></i> '+I18n('wildcard')+' 50%</button>') as JQuery<HTMLButtonElement>;
+        const checkBtn = $('<button class="btn btn-sm btn-primary"><i class="fa fas fa-check"></i> '+I18n('check')+'</button>') as JQuery<HTMLButtonElement>;
+        const comodiBtn = $('<button class="btn btn-sm btn-warning" style="display:none;"><i class="fa far fa-life-ring"></i> '+I18n('wildcard')+' 50%</button>') as JQuery<HTMLButtonElement>;
        
         let currentDatos: any = null;
         let currentEditor: any = null;
@@ -249,7 +249,7 @@ export function findPyGenerators () {
         };
 
          // Reveal answer to this question
-         const showmeBtn = $('<button class="btn btn-sm btn-outline-info" title="Mostra la resposta"><i class="fas fa-question-circle"></i> '+I18n('answer')+'</button>') as JQuery<HTMLButtonElement>;
+         const showmeBtn = $('<button class="btn btn-sm btn-outline-info" title="Mostra la resposta"><i class="fa fas fa-question-circle"></i> '+I18n('answer')+'</button>') as JQuery<HTMLButtonElement>;
          showmeBtn.on('click', function(ev){
              ev.preventDefault();
              if( !currentEditor ) {
@@ -267,7 +267,7 @@ export function findPyGenerators () {
          });
 
         // Skip this question
-        const nextButton = $('<button class="btn btn-sm btn-outline-primary" title="Genera una nova pregunta"><i class="fas fa-arrow-circle-right"></i> '+ I18n('next')+'</button>');
+        const nextButton = $('<button class="btn btn-sm btn-outline-primary" title="Genera una nova pregunta"><i class="fa fas fa-arrow-circle-right"></i> '+ I18n('next')+'</button>');
         nextButton.on('click', function(ev){
             ev.preventDefault();  
             // Remove existing widgets from this gid

@@ -98,11 +98,11 @@ export class EditorPanel extends EditorBase implements EditorTAD {
             this.status = status;
             let msg2: string = '';
             if (status == 1) {
-                msg2 = '<span style="color:green;margin:5px;"><i class="fas fa-check"></i> ' + msg + '</span>';
+                msg2 = '<span style="color:green;margin:5px;"><i class="fa fas fa-check"></i> ' + msg + '</span>';
             } else if (status == 0) {
-                msg2 = '<span style="color:darkred;margin:5px;"><i class="fas fa-times"></i> ' + msg + '</span>';
+                msg2 = '<span style="color:darkred;margin:5px;"><i class="fa fas fa-times"></i> ' + msg + '</span>';
             } else {
-                msg2 = '<span style="color:purple;margin:5px;"><i class="fas fa-exclamation-triangle"></i> ' + msg + '</span>';
+                msg2 = '<span style="color:purple;margin:5px;"><i class="fa fas fa-exclamation-triangle"></i> ' + msg + '</span>';
             }
             this.check_el && this.check_el.html(msg2);
         }

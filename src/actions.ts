@@ -136,7 +136,7 @@ export function bindSubmitActionButton(gid: string, check_btn: JQuery<HTMLButton
 };
 
 export function createSubmitButtonForGroup (gid: string) { 
-    var check_btn = $(`<button class="btn btn-sm btn-primary pw-me-submitgroup"><i class="fas fa-check"></i> ${I18n('check')}</button>`) as JQuery<HTMLButtonElement>;
+    var check_btn = $(`<button class="btn btn-sm btn-primary pw-me-submitgroup"><i class="fa fas fa-check"></i> ${I18n('check')}</button>`) as JQuery<HTMLButtonElement>;
     bindSubmitActionButton(gid, check_btn);
     return check_btn;
 };
